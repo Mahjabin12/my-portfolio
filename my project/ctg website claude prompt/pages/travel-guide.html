@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete travel guide for Chittagong - Transportation, weather, tips, and essential information">
+    <title>Travel Guide - Chittagong Tourism</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.9) 0%, rgba(74, 124, 44, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600') center/cover;
+            padding: 5rem 0 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .guide-section {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--accent-green);
+        }
+
+        .transport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .transport-card {
+            background: var(--bg-cream);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .transport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .transport-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .transport-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .transport-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+        }
+
+        .transport-details {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .transport-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .transport-details li {
+            padding: 0.5rem 0;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .weather-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .season-card {
+            background: linear-gradient(135deg, var(--bg-cream) 0%, white 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .season-card h4 {
+            color: var(--primary-green);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .season-card .temp {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tips-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-item {
+            background: var(--bg-cream);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tip-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .tip-content p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 3rem 0;
+        }
+
+        .info-box h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-box li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+        }
+
+        @media (max-width: 968px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .guide-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>চট্টগ্রাম <span>Tourism</span></h1>
+                    <p class="tagline">Gateway to the Hills & Sea</p>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="../index.html">Home</a>
+                    <a href="tourist-spots.html">Tourist Spots</a>
+                    <a href="history.html">History & Culture</a>
+                    <a href="personalities.html">Famous People</a>
+                    <a href="hotels.html">Hotels & Restaurants</a>
+                    <a href="travel-guide.html" class="active">Travel Guide</a>
+                    <a href="gallery.html">Gallery</a>
+                </nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Complete Travel Guide</h1>
+            <p>Everything you need to know for a perfect trip to Chittagong</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            
+            <!-- How to Reach -->
+            <div class="guide-section" id="reach">
+                <h2>✈️ How to Reach Chittagong</h2>
+                <p style="color: var(--text-gray); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem;">
+                    Chittagong is well-connected to major cities in Bangladesh and has international connectivity. Here are your options:
+                </p>
+
+                <div class="transport-grid">
+                    <div class="transport-card">
+                        <div class="transport-icon">✈️</div>
+                        <h3>By Air</h3>
+                        <p>Shah Amanat International Airport (CGP) is the main airport serving Chittagong.</p>
+                        <div class="transport-details">
+                            <ul>
+                                <li><strong>From Dhaka:</strong> 45 minutes flight</li>
+                                <li><strong>Airlines:</strong> Biman, Novoair, US-Bangla</li>
+                                <li><strong>Frequency:</strong> Multiple daily flights</li>
+                                <li><strong>International:</strong> Direct flights to Middle East</li>
+                                <li><strong>Airport Distance:</strong> 12 km from city</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="transport-card">
+                        <div class="transport-icon">🚂</div>
+                        <h3>By Train</h3>
+                        <p>Comfortable and scenic journey through Bangladesh countryside.</p>
+                        <div class="transport-details">
+                            <ul>
+                                <li><strong>Subarna Express:</strong> Dhaka-CTG (5-6 hrs)</li>
+                                <li><strong>Turna Nishitha:</strong> Night train option</li>
+                                <li><strong>Mahanagar Godhuli:</strong> AC chair option</li>
+                                <li><strong>Station:</strong> Chittagong Railway Station</li>
+                                <li><strong>Fare:</strong> 400-1200 Tk</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="transport-card">
+                        <div class="transport-icon">🚌</div>
+                        <h3>By Bus</h3>
+                        <p>Economical option with multiple operators and departure times.</p>
+                        <div class="transport-details">
+                            <ul>
+                                <li><strong>From Dhaka:</strong> 5-7 hours</li>
+                                <li><strong>Operators:</strong> Greenline, Shyamoli, Hanif</li>
+                                <li><strong>Fare:</strong> 500-1500 Tk</li>
+                                <li><strong>Terminals:</strong> Oxygen Mor, Bahaddarhat</li>
+                                <li><strong>AC/Non-AC:</strong> Both available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Local Transportation -->
+            <div class="guide-section" id="transport">
+                <h2>🚗 Local Transportation</h2>
+                <p style="color: var(--text-gray); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem;">
+                    Getting around Chittagong is easy with various transportation options:
+                </p>
+
+                <div class="transport-grid">
+                    <div class="transport-card">
+                        <div class="transport-icon">🛺</div>
+                        <h3>CNG Auto-rickshaw</h3>
+                        <p>Most popular and convenient for short to medium distances.</p>
+                        <div class="transport-details">
+                            <ul>
+                                <li>Available everywhere 24/7</li>
+                                <li>Fare: 30-200 Tk</li>
+                                <li>Metered service</li>
+                                <li>Can fit 3 passengers</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="transport-card">
+                        <div class="transport-icon">🚕</div>
+                        <h3>Taxi / Ride-sharing</h3>
+                        <p>Uber and Pathao available for comfortable rides.</p>
+                        <div class="transport-details">
+                            <ul>
+                                <li>App-based booking</li>
+                                <li>AC vehicles</li>
+                                <li>Fixed pricing</li>
+                                <li>Safe and reliable</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="transport-card">
+                        <div class="transport-icon">🚌</div>
+                        <h3>City Buses</h3>
+                        <p>Cheapest option for budget travelers.</p>
+                        <div class="transport-details">
+                            <ul>
+                                <li>Extensive routes</li>
+                                <li>Fare: 10-30 Tk</li>
+                                <li>Can be crowded</li>
+                                <li>Local experience</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Time to Visit -->
+            <div class="guide-section" id="season">
+                <h2>🌤️ Best Time to Visit & Weather</h2>
+                <p style="color: var(--text-gray); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem;">
+                    Chittagong has a tropical wet climate with distinct seasons. Plan your visit according to your preferences:
+                </p>
+
+                <div class="weather-info">
+                    <div class="season-card" style="border-left-color: #FFB800;">
+                        <h4>🌸 Winter (Nov-Feb)</h4>
+                        <div class="temp">15-25°C</div>
+                        <p style="color: var(--text-gray); line-height: 1.7;">
+                            <strong>Best Time!</strong> Pleasant weather, clear skies, perfect for sightseeing. Ideal for beach visits and outdoor activities.
+                        </p>
+                    </div>
+
+                    <div class="season-card" style="border-left-color: #FF6B6B;">
+                        <h4>☀️ Summer (Mar-May)</h4>
+                        <div class="temp">25-35°C</div>
+                        <p style="color: var(--text-gray); line-height: 1.7;">
+                            Hot and humid. Good for hill stations. Carry sunscreen and stay hydrated. Less crowded tourist spots.
+                        </p>
+                    </div>
+
+                    <div class="season-card" style="border-left-color: #4ECDC4;">
+                        <h4>🌧️ Monsoon (Jun-Sep)</h4>
+                        <div class="temp">24-32°C</div>
+                        <p style="color: var(--text-gray); line-height: 1.7;">
+                            Heavy rainfall, lush greenery. Beautiful landscapes but travel can be challenging. Not recommended for beach trips.
+                        </p>
+                    </div>
+
+                    <div class="season-card" style="border-left-color: #95E1D3;">
+                        <h4>🍂 Autumn (Oct-Nov)</h4>
+                        <div class="temp">20-30°C</div>
+                        <p style="color: var(--text-gray); line-height: 1.7;">
+                            Pleasant weather begins, clear skies after monsoon. Great for photography and outdoor activities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Essential Information -->
+            <div class="info-box">
+                <h3>📋 Essential Information for Tourists</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <ul>
+                        <li>Currency: Bangladeshi Taka (BDT/৳)</li>
+                        <li>Language: Bengali (Chittagonian dialect)</li>
+                        <li>Time Zone: GMT+6</li>
+                        <li>Electricity: 220V, 50Hz</li>
+                    </ul>
+                    <ul>
+                        <li>Emergency: 999 (Police)</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Police: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Travel Tips -->
+            <div class="guide-section">
+                <h2>💡 Important Travel Tips</h2>
+
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">💰</div>
+                        <div class="tip-content">
+                            <h4>Money & Banking</h4>
+                            <p>ATMs are widely available. Carry cash for small purchases. Major hotels and restaurants accept cards. Currency exchange available at banks and airports.</p>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-icon">📱</div>
+                        <div class="tip-content">
+                            <h4>Mobile & Internet</h4>
+                            <p>Get a local SIM card (Grameenphone, Robi, Banglalink). Available at airport and city centers. 4G coverage is good. Free WiFi at major hotels and cafes.</p>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-icon">👕</div>
+                        <div class="tip-content">
+                            <h4>Dress Code</h4>
+                            <p>Dress modestly, especially when visiting religious sites. Light cotton clothes for summer. Carry a light jacket for winter evenings. Comfortable walking shoes recommended.</p>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-icon">🍽️</div>
+                        <div class="tip-content">
+                            <h4>Food Safety</h4>
+                            <p>Drink bottled water only. Try street food from busy stalls. Wash hands before eating. Restaurants in hotels and tourist areas are generally safe. Ask for less spicy if not accustomed.</p>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-icon">🎒</div>
+                        <div class="tip-content">
+                            <h4>What to Pack</h4>
+                            <p>Sunscreen, insect repellent, comfortable shoes, power adapter, first-aid kit, umbrella, photocopies of important documents, and local guidebook.</p>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-icon">📸</div>
+                        <div class="tip-content">
+                            <h4>Photography</h4>
+                            <p>Ask permission before photographing people. Avoid restricted areas (military zones, airports). Best photos at Patenga Beach sunset and hilltop viewpoints.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Language Guide -->
+            <div class="guide-section">
+                <h2>🗣️ Essential Bangla Phrases</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                    <div style="background: var(--bg-cream); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 1rem;">Greetings</h4>
+                        <p style="margin-bottom: 0.5rem;">Hello - আসসালামু আলাইকুম (Assalamu Alaikum)</p>
+                        <p style="margin-bottom: 0.5rem;">Thank you - ধন্যবাদ (Dhonnobad)</p>
+                        <p style="margin-bottom: 0.5rem;">Please - দয়া করে (Doya kore)</p>
+                        <p>How much? - কত টাকা? (Koto taka?)</p>
+                    </div>
+
+                    <div style="background: var(--bg-cream); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 1rem;">Directions</h4>
+                        <p style="margin-bottom: 0.5rem;">Where is...? - ...কোথায়? (Kothay?)</p>
+                        <p style="margin-bottom: 0.5rem;">Left - বাম (Bam)</p>
+                        <p style="margin-bottom: 0.5rem;">Right - ডান (Dan)</p>
+                        <p>Straight - সোজা (Shoja)</p>
+                    </div>
+
+                    <div style="background: var(--bg-cream); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 1rem;">Emergencies</h4>
+                        <p style="margin-bottom: 0.5rem;">Help! - সাহায্য! (Shahajjo!)</p>
+                        <p style="margin-bottom: 0.5rem;">Hospital - হাসপাতাল (Hashpatal)</p>
+                        <p style="margin-bottom: 0.5rem;">Police - পুলিশ (Police)</p>
+                        <p>I need help - আমার সাহায্য দরকার (Amar shahajjo dorkar)</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Chittagong</h3>
+                    <p>Chittagong is Bangladesh's second-largest city and the country's main seaport. Known for its natural beauty, it's a perfect destination for tourists seeking both adventure and relaxation.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                        <li><a href="hotels.html">Hotels & Restaurants</a></li>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Important Info</h3>
+                    <ul>
+                        <li><a href="history.html">History & Culture</a></li>
+                        <li><a href="personalities.html">Famous Personalities</a></li>
+                        <li><a href="#emergency">Emergency Numbers</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li>Police: 999</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Helpline: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chittagong Tourism. Promoting the beauty of Port City. Made with ❤️ for tourists.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            <div class="chatbot-title">
+                <span class="chatbot-icon">💬</span>
+                <span>CTG Tourism Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot-message">
+                <p>আসসালামু আলাইকুম! Welcome to Chittagong Tourism. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-query="tourist spots">Tourist Spots</button>
+            <button class="quick-reply-btn" data-query="hotels">Hotels</button>
+            <button class="quick-reply-btn" data-query="how to reach">How to Reach</button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Ask about Chittagong..." class="chatbot-input">
+            <button class="chatbot-send" id="chatbotSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/chatbot.js"></script>
+</body>
+</html>

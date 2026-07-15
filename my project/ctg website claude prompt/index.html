@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chittagong Tourism - Explore the Port City of Bangladesh. Complete guide to tourist spots, history, hotels, and restaurants.">
+    <title>চট্টগ্রাম ভ্রমণ | Chittagong Tourism - Discover the Port City</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>চট্টগ্রাম <span>Tourism</span></h1>
+                    <p class="tagline">Gateway to the Hills & Sea</p>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="pages/tourist-spots.html">Tourist Spots</a>
+                    <a href="pages/history.html">History & Culture</a>
+                    <a href="pages/personalities.html">Famous People</a>
+                    <a href="pages/hotels.html">Hotels & Restaurants</a>
+                    <a href="pages/travel-guide.html">Travel Guide</a>
+                    <a href="pages/gallery.html">Gallery</a>
+                </nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="hero-title">Discover Chittagong</h2>
+            <p class="hero-subtitle">Where Hills Meet the Sea - Experience the Natural Beauty of Bangladesh's Port City</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for tourist spots, hotels, history..." class="search-input">
+                <button class="search-btn" id="searchBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🏖️</div>
+                    <h3 class="stat-number">15+</h3>
+                    <p class="stat-label">Tourist Spots</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏨</div>
+                    <h3 class="stat-number">50+</h3>
+                    <p class="stat-label">Hotels & Resorts</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🍽️</div>
+                    <h3 class="stat-number">100+</h3>
+                    <p class="stat-label">Restaurants</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📜</div>
+                    <h3 class="stat-number">1000+</h3>
+                    <p class="stat-label">Years of History</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Destinations -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Popular Tourist Destinations</h2>
+                <p class="section-subtitle">Explore the most beautiful places in Chittagong</p>
+            </div>
+
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800');">
+                        <div class="destination-overlay"></div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Patenga Beach</h3>
+                        <p>Experience the serene beauty of the Bay of Bengal with stunning sunsets and fresh sea breeze.</p>
+                        <a href="pages/tourist-spots.html#patenga" class="destination-link">Explore →</a>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800');">
+                        <div class="destination-overlay"></div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Foy's Lake</h3>
+                        <p>A picturesque man-made lake surrounded by hills, perfect for family outings and adventure.</p>
+                        <a href="pages/tourist-spots.html#foyslake" class="destination-link">Explore →</a>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1549144511-f099e773c147?w=800');">
+                        <div class="destination-overlay"></div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Bayazid Bostami</h3>
+                        <p>Historic shrine and sacred pond with turtles, a place of spiritual significance and tranquility.</p>
+                        <a href="pages/tourist-spots.html#bayazid" class="destination-link">Explore →</a>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1464207687429-7505649dae38?w=800');">
+                        <div class="destination-overlay"></div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Chandranath Hill</h3>
+                        <p>Ancient Hindu temple atop a hill with panoramic views and religious significance.</p>
+                        <a href="pages/tourist-spots.html#chandranath" class="destination-link">Explore →</a>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1581447109200-bf2769116351?w=800');">
+                        <div class="destination-overlay"></div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Karnaphuli River</h3>
+                        <p>The lifeline of Chittagong, offering scenic boat rides and breathtaking river views.</p>
+                        <a href="pages/tourist-spots.html#karnaphuli" class="destination-link">Explore →</a>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800');">
+                        <div class="destination-overlay"></div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Ethnological Museum</h3>
+                        <p>Discover the rich cultural heritage and tribal traditions of Bangladesh.</p>
+                        <a href="pages/tourist-spots.html#museum" class="destination-link">Explore →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Visit Chittagong -->
+    <section class="why-visit-section">
+        <div class="container">
+            <div class="why-visit-content">
+                <div class="why-visit-text">
+                    <h2>Why Visit Chittagong?</h2>
+                    <p>Chittagong, the commercial capital of Bangladesh, is a unique blend of natural beauty, rich history, and modern development. Known as the "Port City," it offers everything from pristine beaches to lush green hills.</p>
+                    <ul class="features-list">
+                        <li>
+                            <span class="feature-icon">🌊</span>
+                            <div>
+                                <strong>Coastal Beauty</strong>
+                                <p>Miles of beautiful beaches along the Bay of Bengal</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-icon">⛰️</span>
+                            <div>
+                                <strong>Hill Stations</strong>
+                                <p>Scenic hills and valleys with cool climate</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-icon">🏛️</span>
+                            <div>
+                                <strong>Rich Heritage</strong>
+                                <p>Centuries of history and cultural diversity</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-icon">🍲</span>
+                            <div>
+                                <strong>Delicious Cuisine</strong>
+                                <p>Unique Chittagonian food and seafood delicacies</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="why-visit-image">
+                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600" alt="Chittagong Landscape">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Chittagong</h3>
+                    <p>Chittagong is Bangladesh's second-largest city and the country's main seaport. Known for its natural beauty, it's a perfect destination for tourists seeking both adventure and relaxation.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="pages/tourist-spots.html">Tourist Spots</a></li>
+                        <li><a href="pages/hotels.html">Hotels & Restaurants</a></li>
+                        <li><a href="pages/travel-guide.html">Travel Guide</a></li>
+                        <li><a href="pages/gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Important Info</h3>
+                    <ul>
+                        <li><a href="pages/history.html">History & Culture</a></li>
+                        <li><a href="pages/personalities.html">Famous Personalities</a></li>
+                        <li><a href="#emergency">Emergency Numbers</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li>Police: 999</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Helpline: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chittagong Tourism. Promoting the beauty of Port City. Made with ❤️ for tourists.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            <div class="chatbot-title">
+                <span class="chatbot-icon">💬</span>
+                <span>CTG Tourism Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot-message">
+                <p>আসসালামু আলাইকুম! Welcome to Chittagong Tourism. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-query="tourist spots">Tourist Spots</button>
+            <button class="quick-reply-btn" data-query="hotels">Hotels</button>
+            <button class="quick-reply-btn" data-query="how to reach">How to Reach</button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Ask about Chittagong..." class="chatbot-input">
+            <button class="chatbot-send" id="chatbotSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

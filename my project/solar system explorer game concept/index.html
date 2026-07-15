@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Solar System Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            overflow: hidden;
+            height: 100vh;
+            color: white;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #canvas {
+            display: block;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        #canvas:active {
+            cursor: grabbing;
+        }
+
+        .ui-panel {
+            position: absolute;
+            background: rgba(0, 20, 40, 0.95);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 100, 200, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Desktop Layout (1200px+) */
+        @media (min-width: 1200px) {
+            #controlPanel {
+                top: 20px;
+                left: 20px;
+                width: 320px;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            #infoPanel {
+                top: 20px;
+                right: 20px;
+                width: 350px;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            #challengePanel {
+                bottom: 20px;
+                left: 20px;
+                width: 300px;
+            }
+
+            #toolsPanel {
+                bottom: 20px;
+                right: 20px;
+                width: 280px;
+            }
+        }
+
+        /* Tablet Layout (768px - 1199px) */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .ui-panel {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            #controlPanel {
+                top: 10px;
+                left: 10px;
+                width: 280px;
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+
+            #infoPanel {
+                top: 10px;
+                right: 10px;
+                width: 300px;
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+
+            #challengePanel {
+                bottom: 10px;
+                left: 10px;
+                width: 260px;
+            }
+
+            #toolsPanel {
+                bottom: 10px;
+                right: 10px;
+                width: 240px;
+            }
+        }
+
+        /* Mobile Layout (up to 767px) */
+        @media (max-width: 767px) {
+            .ui-panel {
+                padding: 8px;
+                font-size: 12px;
+                border-radius: 6px;
+            }
+
+            #controlPanel {
+                top: 5px;
+                left: 5px;
+                right: 5px;
+                width: auto;
+                max-height: 40vh;
+                overflow-y: auto;
+                z-index: 1000;
+            }
+
+            #infoPanel {
+                top: 5px;
+                left: 5px;
+                right: 5px;
+                width: auto;
+                max-height: 35vh;
+                overflow-y: auto;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                z-index: 999;
+            }
+
+            #infoPanel.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            #challengePanel {
+                bottom: 60px;
+                left: 5px;
+                right: 5px;
+                width: auto;
+                z-index: 998;
+            }
+
+            #toolsPanel {
+                bottom: 5px;
+                left: 5px;
+                right: 5px;
+                width: auto;
+                z-index: 997;
+            }
+
+            /* Mobile navigation bar */
+            #mobileNav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 50px;
+                background: rgba(0, 20, 40, 0.95);
+                border-top: 1px solid rgba(100, 200, 255, 0.3);
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                z-index: 1001;
+            }
+
+            .mobile-nav-btn {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 20px;
+                padding: 10px;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .mobile-nav-btn.active {
+                color: #64b5f6;
+            }
+        }
+
+        /* Portrait orientation adjustments */
+        @media (max-width: 767px) and (orientation: portrait) {
+            #controlPanel {
+                max-height: 35vh;
+            }
+
+            #infoPanel {
+                max-height: 30vh;
+            }
+
+            #challengePanel {
+                bottom: 110px;
+            }
+
+            #toolsPanel {
+                bottom: 55px;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (max-width: 767px) and (orientation: landscape) {
+            #controlPanel {
+                max-height: 50vh;
+            }
+
+            #infoPanel {
+                max-height: 45vh;
+            }
+
+            #challengePanel {
+                bottom: 80px;
+            }
+
+            #toolsPanel {
+                bottom: 55px;
+            }
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group h3 {
+            color: #64b5f6;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #1976d2, #42a5f5);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: linear-gradient(135deg, #1565c0, #1976d2);
+            transform: translateY(-1px);
+        }
+
+        .button.active {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+        }
+
+        .button.small {
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+
+        .slider {
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .celestial-info {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(100, 181, 246, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid #64b5f6;
+        }
+
+        .celestial-info h4 {
+            color: #81c784;
+            margin-bottom: 5px;
+        }
+
+        .physics-info {
+            font-size: 11px;
+            color: #b0bec5;
+            margin-top: 5px;
+        }
+
+        .challenge-box {
+            background: rgba(255, 107, 53, 0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .challenge-box h4 {
+            color: #ff6b35;
+            margin-bottom: 5px;
+        }
+
+        .measurement-tool {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .age-selector {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #81c784);
+            transition: width 0.3s ease;
+        }
+
+        .force-vector {
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- Starfield background -->
+        <div class="stars" id="starfield"></div>
+        
+        <!-- Main 3D Canvas -->
+        <canvas id="canvas"></canvas>
+        
+        <!-- Control Panel -->
+        <div id="controlPanel" class="ui-panel">
+            <div class="control-group">
+                <h3>👥 Learning Level</h3>
+                <div class="age-selector">
+                    <button class="button small" onclick="setAgeLevel('elementary')" id="elemBtn">Elementary</button>
+                    <button class="button small active" onclick="setAgeLevel('middle')" id="middleBtn">Middle School</button>
+                    <button class="button small" onclick="setAgeLevel('high')" id="highBtn">High School</button>
+                    <button class="button small" onclick="setAgeLevel('advanced')" id="advBtn">Advanced</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>🚀 Navigation</h3>
+                <button class="button small" onclick="focusOnBody('sun')">Sun</button>
+                <button class="button small" onclick="focusOnBody('mercury')">Mercury</button>
+                <button class="button small" onclick="focusOnBody('venus')">Venus</button>
+                <button class="button small" onclick="focusOnBody('earth')">Earth</button>
+                <button class="button small" onclick="focusOnBody('mars')">Mars</button>
+                <button class="button small" onclick="focusOnBody('jupiter')">Jupiter</button>
+                <button class="button small" onclick="focusOnBody('saturn')">Saturn</button>
+                <button class="button small" onclick="focusOnBody('asteroid1')">Ceres</button>
+                <button class="button small" onclick="focusOnBody('comet1')">Halley</button>
+            </div>
+            
+            <div class="control-group">
+                <h3>⏱️ Time Control</h3>
+                <button class="button" onclick="togglePause()" id="pauseBtn">Pause</button>
+                <button class="button" onclick="resetTime()">Reset</button>
+                <button class="button" onclick="timeWarp()" id="warpBtn">Time Warp</button>
+                <br>
+                <label>Speed: <span id="speedDisplay">1x</span></label>
+                <input type="range" class="slider" min="0.1" max="50" step="0.1" value="1" 
+                       onchange="setTimeSpeed(this.value)" id="speedSlider">
+            </div>
+            
+            <div class="control-group">
+                <h3>👁️ View Options</h3>
+                <button class="button small" onclick="toggleOrbits()" id="orbitsBtn">Orbits</button>
+                <button class="button small" onclick="toggleLabels()" id="labelsBtn">Labels</button>
+                <button class="button small" onclick="togglePhysics()" id="physicsBtn">Physics</button>
+                <button class="button small" onclick="toggleForces()" id="forcesBtn">Forces</button>
+                <button class="button small" onclick="toggleTrails()" id="trailsBtn">Trails</button>
+            </div>
+            
+            <div class="control-group">
+                <h3>🎯 Mission Control</h3>
+                <button class="button" onclick="launchMission('mars')" id="marsBtn">Mars Mission</button>
+                <button class="button" onclick="launchMission('jupiter')" id="jupiterBtn">Jupiter Flyby</button>
+                <button class="button" onclick="showLagrangePoints()" id="lagrangeBtn">Lagrange Points</button>
+            </div>
+        </div>
+        
+        <!-- Information Panel -->
+        <div id="infoPanel" class="ui-panel">
+            <div id="selectedBodyInfo">
+                <h3>🌍 Advanced Solar System Explorer</h3>
+                <p>Click celestial bodies to explore! Drag to rotate, scroll to zoom.</p>
+                <br>
+                <div class="physics-info" id="educationalContent">
+                    <strong>Kepler's Laws of Planetary Motion:</strong><br>
+                    • 1st Law: Planets orbit in ellipses with the Sun at one focus<br>
+                    • 2nd Law: Planets sweep equal areas in equal times<br>
+                    • 3rd Law: Orbital period² ∝ distance³<br><br>
+                    <strong>Gravitational Physics:</strong><br>
+                    F = G(m₁m₂)/r² - Universal gravitation<br>
+                    Escape velocity: v = √(2GM/r)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Challenge Panel -->
+        <div id="challengePanel" class="ui-panel">
+            <div class="challenge-box">
+                <h4>🎮 Current Challenge</h4>
+                <div id="currentChallenge">
+                    <p><strong>Orbital Resonance Explorer:</strong></p>
+                    <p>Find how Jupiter's gravity affects asteroid orbits!</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%" id="challengeProgress"></div>
+                    </div>
+                    <button class="button" onclick="nextChallenge()">Next Challenge</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tools Panel -->
+        <div id="toolsPanel" class="ui-panel">
+            <div class="control-group">
+                <h3>🔧 Measurement Tools</h3>
+                <div class="measurement-tool" id="distanceTool">
+                    <strong>Distance:</strong> Select two bodies<br>
+                    <span id="distanceResult">No selection</span>
+                </div>
+                <div class="measurement-tool" id="velocityTool">
+                    <strong>Orbital Velocity:</strong><br>
+                    <span id="velocityResult">Click a planet</span>
+                </div>
+                <div class="measurement-tool" id="gravityTool">
+                    <strong>Gravitational Force:</strong><br>
+                    <span id="gravityResult">Select two bodies</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>📊 Real-time Data</h3>
+                <div style="font-size: 11px;">
+                    <div>Earth Year: <span id="earthYear">0.0</span></div>
+                    <div>Mars Year: <span id="marsYear">0.0</span></div>
+                    <div>Jupiter Year: <span id="jupiterYear">0.0</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation (only visible on mobile) -->
+        <div id="mobileNav" style="display: none;">
+            <button class="mobile-nav-btn active" onclick="showMobilePanel('controls')" id="mobileControlsBtn">
+                🎮
+            </button>
+            <button class="mobile-nav-btn" onclick="showMobilePanel('info')" id="mobileInfoBtn">
+                ℹ️
+            </button>
+            <button class="mobile-nav-btn" onclick="showMobilePanel('challenges')" id="mobileChallengesBtn">
+                🎯
+            </button>
+            <button class="mobile-nav-btn" onclick="showMobilePanel('tools')" id="mobileToolsBtn">
+                🔧
+            </button>
+            <button class="mobile-nav-btn" onclick="toggleMobilePause()" id="mobilePauseBtn">
+                ⏸️
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let canvas, ctx;
+        let camera = { x: 0, y: 0, zoom: 0.8, rotation: 0 };
+        let timeSpeed = 1;
+        let isPaused = false;
+        let showOrbits = true;
+        let showLabels = true;
+        let showPhysicsInfo = false;
+        let showForces = false;
+        let showTrails = false;
+        let selectedBodies = [];
+        let focusedBody = null;
+        let time = 0;
+        let ageLevel = 'middle';
+        let currentChallenge = 0;
+        let missionActive = false;
+        let trails = {};
+        let timeWarpActive = false;
+        
+        // Mouse and touch interaction
+        let isDragging = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        let isMobile = false;
+        let activeMobilePanel = 'controls';
+        let touchStartDistance = 0;
+        let initialZoom = 1;
+        
+        // Challenges for different learning levels
+        const challenges = {
+            elementary: [
+                { title: "Planet Size Explorer", desc: "Compare the sizes of different planets!", task: "Click on Jupiter, then Earth to see the size difference" },
+                { title: "Moon Phases", desc: "Watch how the Moon orbits Earth!", task: "Focus on Earth and speed up time to see lunar phases" },
+                { title: "Day and Night", desc: "See how planets spin and orbit!", task: "Focus on Earth and observe its rotation" }
+            ],
+            middle: [
+                { title: "Orbital Periods", desc: "Discover why outer planets take longer to orbit!", task: "Compare Earth's year to Mars' year" },
+                { title: "Asteroid Belt", desc: "Explore the space between Mars and Jupiter!", task: "Find Ceres in the asteroid belt" },
+                { title: "Gravity Wells", desc: "See how massive objects bend space!", task: "Observe how Jupiter affects nearby objects" }
+            ],
+            high: [
+                { title: "Kepler's Laws", desc: "Test the mathematical laws of planetary motion!", task: "Measure orbital periods and distances to verify Kepler's 3rd Law" },
+                { title: "Escape Velocity", desc: "Calculate the speed needed to escape planets!", task: "Compare escape velocities of Earth and Mars" },
+                { title: "Tidal Forces", desc: "Understand how gravity creates tides!", task: "Observe Moon's gravitational effect on Earth" }
+            ],
+            advanced: [
+                { title: "Lagrange Points", desc: "Find gravitational equilibrium points!", task: "Locate L4 and L5 points in Earth-Moon system" },
+                { title: "Orbital Resonance", desc: "Discover how orbits synchronize!", task: "Study Jupiter's influence on asteroid belt gaps" },
+                { title: "Three-Body Problem", desc: "Explore complex gravitational interactions!", task: "Analyze Sun-Earth-Moon gravitational dynamics" }
+            ]
+        };
+        
+        // Enhanced celestial bodies with comprehensive data
+        const celestialBodies = {
+            sun: {
+                name: "Sun", x: 0, y: 0, radius: 30, color: "#FDB813",
+                mass: "1.989 × 10³⁰ kg", type: "star",
+                info: {
+                    elementary: "The Sun is a giant ball of hot gas that gives us light and heat!",
+                    middle: "The Sun is a star that creates energy by combining hydrogen into helium.",
+                    high: "The Sun generates energy through nuclear fusion in its core at 15 million°C.",
+                    advanced: "The Sun converts 4 million tons of mass to energy every second via fusion."
+                },
+                physics: "Surface temp: 5,778 K, Core temp: 15 million K, Luminosity: 3.828 × 10²⁶ W",
+                escapeVelocity: 617.5
+            },
+            mercury: {
+                name: "Mercury", x: 0, y: 0, radius: 4, color: "#8C7853",
+                orbitRadius: 120, orbitSpeed: 0.048, mass: "3.301 × 10²³ kg", type: "planet",
+                info: {
+                    elementary: "Mercury is the smallest planet and closest to the Sun!",
+                    middle: "Mercury has no atmosphere and extreme temperature changes.",
+                    high: "Mercury's orbit precession helped confirm Einstein's relativity theory.",
+                    advanced: "Mercury's 3:2 spin-orbit resonance creates unique solar day patterns."
+                },
+                physics: "Orbital velocity: 47.87 km/s, Day: 58.6 Earth days, No atmosphere",
+                escapeVelocity: 4.25
+            },
+            venus: {
+                name: "Venus", x: 0, y: 0, radius: 7, color: "#FFC649",
+                orbitRadius: 160, orbitSpeed: 0.035, mass: "4.867 × 10²⁴ kg", type: "planet",
+                info: {
+                    elementary: "Venus is the hottest planet because of its thick clouds!",
+                    middle: "Venus has a runaway greenhouse effect with 96% CO₂ atmosphere.",
+                    high: "Venus rotates backwards and has surface pressure 92x Earth's.",
+                    advanced: "Venus lost its water through photodissociation and hydrogen escape."
+                },
+                physics: "Surface temp: 464°C, Pressure: 9.2 MPa, Retrograde rotation",
+                escapeVelocity: 10.36
+            },
+            earth: {
+                name: "Earth", x: 0, y: 0, radius: 8, color: "#6B93D6",
+                orbitRadius: 200, orbitSpeed: 0.02, mass: "5.972 × 10²⁴ kg", type: "planet",
+                info: {
+                    elementary: "Earth is our home planet with air, water, and life!",
+                    middle: "Earth's magnetic field protects us from harmful solar radiation.",
+                    high: "Earth's 23.5° axial tilt creates seasons and climate zones.",
+                    advanced: "Earth's magnetosphere deflects solar wind via magnetic reconnection."
+                },
+                physics: "Orbital velocity: 29.78 km/s, Magnetic field: 25-65 μT",
+                escapeVelocity: 11.19
+            },
+            moon: {
+                name: "Moon", x: 0, y: 0, radius: 3, color: "#C0C0C0",
+                orbitRadius: 25, orbitSpeed: 0.15, parent: 'earth',
+                mass: "7.342 × 10²² kg", type: "moon",
+                info: {
+                    elementary: "The Moon orbits Earth and creates ocean tides!",
+                    middle: "The Moon formed from debris after a Mars-sized object hit Earth.",
+                    high: "The Moon's gravity creates tidal bulges and slows Earth's rotation.",
+                    advanced: "Tidal locking keeps one face toward Earth due to gravitational gradient."
+                },
+                physics: "Distance: 384,400 km, Tidal force: 2.2 × 10²⁰ N",
+                escapeVelocity: 2.38
+            },
+            mars: {
+                name: "Mars", x: 0, y: 0, radius: 6, color: "#CD5C5C",
+                orbitRadius: 300, orbitSpeed: 0.01, mass: "6.39 × 10²³ kg", type: "planet",
+                info: {
+                    elementary: "Mars is red because of rusty iron on its surface!",
+                    middle: "Mars has the largest volcano and canyon in the solar system.",
+                    high: "Mars lost its atmosphere due to weak magnetic field and solar wind.",
+                    advanced: "Mars' obliquity varies from 15° to 35° causing climate changes."
+                },
+                physics: "Olympus Mons: 21 km high, Valles Marineris: 4000 km long",
+                escapeVelocity: 5.03
+            },
+            jupiter: {
+                name: "Jupiter", x: 0, y: 0, radius: 20, color: "#D8CA9D",
+                orbitRadius: 450, orbitSpeed: 0.0084, mass: "1.898 × 10²⁷ kg", type: "planet",
+                info: {
+                    elementary: "Jupiter is the biggest planet and protects Earth from asteroids!",
+                    middle: "Jupiter is a gas giant with a Great Red Spot storm bigger than Earth.",
+                    high: "Jupiter's gravity shepherds asteroids and affects comet trajectories.",
+                    advanced: "Jupiter's core pressure reaches 4000 GPa, possibly metallic hydrogen."
+                },
+                physics: "Great Red Spot: 16,000 km wide, 79 known moons",
+                escapeVelocity: 59.5
+            },
+            saturn: {
+                name: "Saturn", x: 0, y: 0, radius: 18, color: "#FAD5A5",
+                orbitRadius: 600, orbitSpeed: 0.0034, mass: "5.683 × 10²⁶ kg", type: "planet",
+                hasRings: true,
+                info: {
+                    elementary: "Saturn has beautiful rings made of ice and rock!",
+                    middle: "Saturn's rings are made of billions of particles orbiting the planet.",
+                    high: "Saturn's ring system spans 282,000 km but is only 10 meters thick.",
+                    advanced: "Ring particles follow complex dynamics including shepherd moons and resonances."
+                },
+                physics: "Ring span: 282,000 km, Density: 0.687 g/cm³ (less than water)",
+                escapeVelocity: 35.5
+            },
+            asteroid1: {
+                name: "Ceres", x: 0, y: 0, radius: 2, color: "#A0A0A0",
+                orbitRadius: 375, orbitSpeed: 0.007, mass: "9.39 × 10²⁰ kg", type: "asteroid",
+                info: {
+                    elementary: "Ceres is the biggest rock in the asteroid belt!",
+                    middle: "Ceres is a dwarf planet that might have water under its surface.",
+                    high: "Ceres contains about 1/3 of the asteroid belt's total mass.",
+                    advanced: "Ceres shows evidence of cryovolcanism and subsurface brine."
+                },
+                physics: "Diameter: 940 km, Water ice detected, Possible subsurface ocean",
+                escapeVelocity: 0.51
+            },
+            comet1: {
+                name: "Halley's Comet", x: 0, y: 0, radius: 1.5, color: "#87CEEB",
+                orbitRadius: 800, orbitSpeed: 0.001, mass: "2.2 × 10¹⁴ kg", type: "comet",
+                hasTail: true,
+                info: {
+                    elementary: "Halley's Comet visits us every 76 years with a bright tail!",
+                    middle: "Comets are 'dirty snowballs' that develop tails when heated by the Sun.",
+                    high: "Comet tails always point away from the Sun due to solar wind pressure.",
+                    advanced: "Halley's nucleus is 15×8 km, rotating every 52 hours with complex outgassing."
+                },
+                physics: "Orbital period: 75-76 years, Highly elliptical orbit, Nucleus: 15×8 km",
+                escapeVelocity: 0.0003
+            }
+        };
+        
+        function init() {
+            canvas = document.getElementById('canvas');
+            ctx = canvas.getContext('2d');
+            
+            // Detect mobile device
+            isMobile = window.innerWidth <= 767 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            resizeCanvas();
+            setupResponsiveLayout();
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                setupResponsiveLayout();
+            });
+            
+            // Mouse controls
+            canvas.addEventListener('mousedown', onMouseDown);
+            canvas.addEventListener('mousemove', onMouseMove);
+            canvas.addEventListener('mouseup', onMouseUp);
+            canvas.addEventListener('wheel', onWheel);
+            canvas.addEventListener('click', onCanvasClick);
+            
+            // Touch controls
+            canvas.addEventListener('touchstart', onTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', onTouchMove, { passive: false });
+            canvas.addEventListener('touchend', onTouchEnd, { passive: false });
+            
+            // Initialize trails
+            Object.keys(celestialBodies).forEach(key => {
+                trails[key] = [];
+            });
+            
+            createStarfield();
+            updateEducationalContent();
+            animate();
+        }
+        
+        function setupResponsiveLayout() {
+            const mobileNav = document.getElementById('mobileNav');
+            
+            if (window.innerWidth <= 767) {
+                // Mobile layout
+                mobileNav.style.display = 'flex';
+                showMobilePanel(activeMobilePanel);
+            } else {
+                // Desktop/tablet layout
+                mobileNav.style.display = 'none';
+                // Show all panels
+                document.getElementById('controlPanel').style.display = 'block';
+                document.getElementById('infoPanel').style.display = 'block';
+                document.getElementById('challengePanel').style.display = 'block';
+                document.getElementById('toolsPanel').style.display = 'block';
+                document.getElementById('infoPanel').classList.remove('active');
+            }
+        }
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            for (let i = 0; i < 300; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = Math.random() * 2 + 1 + 'px';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
+        
+        function updatePositions() {
+            if (isPaused) return;
+            
+            const deltaTime = timeSpeed * 0.016;
+            time += deltaTime;
+            
+            // Update planetary positions
+            Object.entries(celestialBodies).forEach(([key, body]) => {
+                if (body.orbitRadius) {
+                    if (body.parent) {
+                        // Moon orbits around parent
+                        const parent = celestialBodies[body.parent];
+                        body.x = parent.x + Math.cos(time * body.orbitSpeed) * body.orbitRadius;
+                        body.y = parent.y + Math.sin(time * body.orbitSpeed) * body.orbitRadius;
+                    } else {
+                        // Planet orbits around sun
+                        body.x = Math.cos(time * body.orbitSpeed) * body.orbitRadius;
+                        body.y = Math.sin(time * body.orbitSpeed) * body.orbitRadius;
+                    }
+                    
+                    // Add to trail
+                    if (showTrails && trails[key]) {
+                        trails[key].push({ x: body.x, y: body.y, time: time });
+                        if (trails[key].length > 100) trails[key].shift();
+                    }
+                }
+            });
+            
+            // Update real-time data
+            updateRealTimeData();
+        }
+        
+        function updateRealTimeData() {
+            const earthYear = (time * celestialBodies.earth.orbitSpeed / (2 * Math.PI)).toFixed(2);
+            const marsYear = (time * celestialBodies.mars.orbitSpeed / (2 * Math.PI)).toFixed(2);
+            const jupiterYear = (time * celestialBodies.jupiter.orbitSpeed / (2 * Math.PI)).toFixed(3);
+            
+            document.getElementById('earthYear').textContent = earthYear;
+            document.getElementById('marsYear').textContent = marsYear;
+            document.getElementById('jupiterYear').textContent = jupiterYear;
+        }
+        
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.scale(camera.zoom, camera.zoom);
+            ctx.rotate(camera.rotation);
+            ctx.translate(-camera.x, -camera.y);
+            
+            // Draw trails
+            if (showTrails) {
+                drawTrails();
+            }
+            
+            // Draw orbits
+            if (showOrbits) {
+                drawOrbits();
+            }
+            
+            // Draw gravitational forces
+            if (showForces) {
+                drawForces();
+            }
+            
+            // Draw celestial bodies
+            Object.entries(celestialBodies).forEach(([key, body]) => {
+                drawCelestialBody(key, body);
+            });
+            
+            ctx.restore();
+            
+            updateMeasurements();
+        }
+        
+        function drawTrails() {
+            Object.entries(trails).forEach(([key, trail]) => {
+                if (trail.length < 2) return;
+                
+                const body = celestialBodies[key];
+                ctx.strokeStyle = body.color + '40';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(trail[0].x, trail[0].y);
+                
+                for (let i = 1; i < trail.length; i++) {
+                    ctx.lineTo(trail[i].x, trail[i].y);
+                }
+                ctx.stroke();
+            });
+        }
+        
+        function drawOrbits() {
+            ctx.strokeStyle = 'rgba(100, 181, 246, 0.3)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 5]);
+            
+            Object.entries(celestialBodies).forEach(([key, body]) => {
+                if (body.orbitRadius && !body.parent) {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, body.orbitRadius, 0, Math.PI * 2);
+                    ctx.stroke();
+                } else if (body.parent) {
+                    const parent = celestialBodies[body.parent];
+                    ctx.beginPath();
+                    ctx.arc(parent.x, parent.y, body.orbitRadius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            });
+            
+            ctx.setLineDash([]);
+        }
+        
+        function drawForces() {
+            // Draw gravitational force vectors between selected bodies
+            if (selectedBodies.length === 2) {
+                const body1 = celestialBodies[selectedBodies[0]];
+                const body2 = celestialBodies[selectedBodies[1]];
+                
+                const dx = body2.x - body1.x;
+                const dy = body2.y - body1.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Draw force vector
+                ctx.strokeStyle = '#ff6b35';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(body1.x, body1.y);
+                ctx.lineTo(body1.x + dx * 0.3, body1.y + dy * 0.3);
+                ctx.stroke();
+                
+                // Draw arrowhead
+                const angle = Math.atan2(dy, dx);
+                ctx.beginPath();
+                ctx.moveTo(body1.x + dx * 0.3, body1.y + dy * 0.3);
+                ctx.lineTo(body1.x + dx * 0.3 - 10 * Math.cos(angle - 0.3), 
+                          body1.y + dy * 0.3 - 10 * Math.sin(angle - 0.3));
+                ctx.moveTo(body1.x + dx * 0.3, body1.y + dy * 0.3);
+                ctx.lineTo(body1.x + dx * 0.3 - 10 * Math.cos(angle + 0.3), 
+                          body1.y + dy * 0.3 - 10 * Math.sin(angle + 0.3));
+                ctx.stroke();
+            }
+        }
+        
+        function drawCelestialBody(key, body) {
+            ctx.save();
+            
+            // Glow effect
+            const gradient = ctx.createRadialGradient(body.x, body.y, 0, body.x, body.y, body.radius * 2);
+            gradient.addColorStop(0, body.color);
+            gradient.addColorStop(0.7, body.color + '80');
+            gradient.addColorStop(1, 'transparent');
+            
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(body.x, body.y, body.radius * 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Main body
+            ctx.fillStyle = body.color;
+            ctx.beginPath();
+            ctx.arc(body.x, body.y, body.radius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Special features
+            if (body.hasRings) {
+                drawRings(body);
+            }
+            
+            if (body.hasTail) {
+                drawCometTail(body);
+            }
+            
+            // Selection highlight
+            if (selectedBodies.includes(key)) {
+                ctx.strokeStyle = '#FFD700';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(body.x, body.y, body.radius + 5, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            // Labels
+            if (showLabels) {
+                ctx.fillStyle = 'white';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(body.name, body.x, body.y - body.radius - 15);
+                
+                if (showPhysicsInfo && body.escapeVelocity) {
+                    ctx.font = '10px Arial';
+                    ctx.fillText(`v_esc: ${body.escapeVelocity} km/s`, body.x, body.y + body.radius + 20);
+                }
+            }
+            
+            ctx.restore();
+        }
+        
+        function drawRings(body) {
+            ctx.strokeStyle = body.color + '60';
+            ctx.lineWidth = 2;
+            
+            for (let i = 1; i <= 3; i++) {
+                ctx.beginPath();
+                ctx.ellipse(body.x, body.y, body.radius * (1.5 + i * 0.3), body.radius * (1.2 + i * 0.2), 0, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+        }
+        
+        function drawCometTail(body) {
+            // Simple comet tail pointing away from sun
+            const sunX = celestialBodies.sun.x;
+            const sunY = celestialBodies.sun.y;
+            const dx = body.x - sunX;
+            const dy = body.y - sunY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            const tailLength = Math.max(20, 200 - distance * 0.1);
+            const tailX = body.x + (dx / distance) * tailLength;
+            const tailY = body.y + (dy / distance) * tailLength;
+            
+            const gradient = ctx.createLinearGradient(body.x, body.y, tailX, tailY);
+            gradient.addColorStop(0, body.color + 'AA');
+            gradient.addColorStop(1, body.color + '00');
+            
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 8;
+            ctx.beginPath();
+            ctx.moveTo(body.x, body.y);
+            ctx.lineTo(tailX, tailY);
+            ctx.stroke();
+        }
+        
+        function onMouseDown(e) {
+            isDragging = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        }
+        
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - lastMouseX;
+            const deltaY = e.clientY - lastMouseY;
+            
+            if (focusedBody) {
+                camera.rotation += deltaX * 0.01;
+            } else {
+                camera.x -= deltaX / camera.zoom;
+                camera.y -= deltaY / camera.zoom;
+            }
+            
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        }
+        
+        function onMouseUp() {
+            isDragging = false;
+        }
+        
+        function onWheel(e) {
+            e.preventDefault();
+            const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+            camera.zoom = Math.max(0.1, Math.min(10, camera.zoom * zoomFactor));
+        }
+        
+        function onCanvasClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left - canvas.width / 2) / camera.zoom + camera.x;
+            const y = (e.clientY - rect.top - canvas.height / 2) / camera.zoom + camera.y;
+            
+            Object.entries(celestialBodies).forEach(([key, body]) => {
+                const distance = Math.sqrt((x - body.x) ** 2 + (y - body.y) ** 2);
+                if (distance <= body.radius) {
+                    selectBody(key);
+                }
+            });
+        }
+        
+        // Touch event handlers
+        function onTouchStart(e) {
+            e.preventDefault();
+            
+            if (e.touches.length === 1) {
+                // Single touch - pan
+                isDragging = true;
+                lastMouseX = e.touches[0].clientX;
+                lastMouseY = e.touches[0].clientY;
+            } else if (e.touches.length === 2) {
+                // Two finger touch - zoom
+                isDragging = false;
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                touchStartDistance = Math.sqrt(
+                    Math.pow(touch2.clientX - touch1.clientX, 2) +
+                    Math.pow(touch2.clientY - touch1.clientY, 2)
+                );
+                initialZoom = camera.zoom;
+            }
+        }
+        
+        function onTouchMove(e) {
+            e.preventDefault();
+            
+            if (e.touches.length === 1 && isDragging) {
+                // Single touch - pan
+                const deltaX = e.touches[0].clientX - lastMouseX;
+                const deltaY = e.touches[0].clientY - lastMouseY;
+                
+                if (focusedBody) {
+                    camera.rotation += deltaX * 0.01;
+                } else {
+                    camera.x -= deltaX / camera.zoom;
+                    camera.y -= deltaY / camera.zoom;
+                }
+                
+                lastMouseX = e.touches[0].clientX;
+                lastMouseY = e.touches[0].clientY;
+            } else if (e.touches.length === 2) {
+                // Two finger touch - zoom
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = Math.sqrt(
+                    Math.pow(touch2.clientX - touch1.clientX, 2) +
+                    Math.pow(touch2.clientY - touch1.clientY, 2)
+                );
+                
+                const zoomFactor = currentDistance / touchStartDistance;
+                camera.zoom = Math.max(0.1, Math.min(10, initialZoom * zoomFactor));
+            }
+        }
+        
+        function onTouchEnd(e) {
+            e.preventDefault();
+            
+            if (e.touches.length === 0) {
+                isDragging = false;
+                
+                // Handle tap to select
+                if (e.changedTouches.length === 1) {
+                    const touch = e.changedTouches[0];
+                    const rect = canvas.getBoundingClientRect();
+                    const x = (touch.clientX - rect.left - canvas.width / 2) / camera.zoom + camera.x;
+                    const y = (touch.clientY - rect.top - canvas.height / 2) / camera.zoom + camera.y;
+                    
+                    Object.entries(celestialBodies).forEach(([key, body]) => {
+                        const distance = Math.sqrt((x - body.x) ** 2 + (y - body.y) ** 2);
+                        if (distance <= body.radius * 2) { // Larger touch target
+                            selectBody(key);
+                        }
+                    });
+                }
+            }
+        }
+        
+        function selectBody(bodyKey) {
+            if (selectedBodies.includes(bodyKey)) {
+                selectedBodies = selectedBodies.filter(b => b !== bodyKey);
+            } else {
+                if (selectedBodies.length >= 2) {
+                    selectedBodies.shift();
+                }
+                selectedBodies.push(bodyKey);
+            }
+            
+            updateInfoPanel(bodyKey);
+            checkChallengeProgress();
+        }
+        
+        function updateInfoPanel(bodyKey) {
+            const body = celestialBodies[bodyKey];
+            const infoPanel = document.getElementById('selectedBodyInfo');
+            
+            let html = `
+                <div class="celestial-info">
+                    <h4>${body.name} (${body.type})</h4>
+                    <p><strong>Mass:</strong> ${body.mass}</p>
+                    <p>${body.info[ageLevel]}</p>
+                    ${showPhysicsInfo ? `<div class="physics-info">${body.physics}</div>` : ''}
+                </div>
+            `;
+            
+            if (selectedBodies.length > 0) {
+                html += '<h4>Selected Bodies:</h4>';
+                selectedBodies.forEach(key => {
+                    html += `<span style="color: ${celestialBodies[key].color}">● ${celestialBodies[key].name}</span> `;
+                });
+            }
+            
+            infoPanel.innerHTML = html;
+        }
+        
+        function updateMeasurements() {
+            // Distance measurement
+            if (selectedBodies.length === 2) {
+                const body1 = celestialBodies[selectedBodies[0]];
+                const body2 = celestialBodies[selectedBodies[1]];
+                const distance = Math.sqrt((body1.x - body2.x) ** 2 + (body1.y - body2.y) ** 2);
+                const realDistance = (distance * 1000000).toLocaleString();
+                
+                document.getElementById('distanceResult').innerHTML = 
+                    `${body1.name} ↔ ${body2.name}<br>${realDistance} km`;
+                
+                // Gravitational force calculation
+                const G = 6.674e-11;
+                const m1 = parseFloat(body1.mass.split(' ')[0]) * Math.pow(10, parseInt(body1.mass.split('10')[1]));
+                const m2 = parseFloat(body2.mass.split(' ')[0]) * Math.pow(10, parseInt(body2.mass.split('10')[1]));
+                const r = distance * 1000000 * 1000; // Convert to meters
+                const force = (G * m1 * m2) / (r * r);
+                
+                document.getElementById('gravityResult').innerHTML = 
+                    `${force.toExponential(2)} N`;
+            } else {
+                document.getElementById('distanceResult').textContent = 'Select two bodies';
+                document.getElementById('gravityResult').textContent = 'Select two bodies';
+            }
+            
+            // Velocity measurement
+            if (selectedBodies.length >= 1) {
+                const body = celestialBodies[selectedBodies[selectedBodies.length - 1]];
+                if (body.orbitRadius && body.orbitSpeed) {
+                    const velocity = (body.orbitRadius * body.orbitSpeed * 1000000 / 1000).toFixed(2);
+                    document.getElementById('velocityResult').innerHTML = 
+                        `${body.name}: ${velocity} km/s`;
+                }
+            } else {
+                document.getElementById('velocityResult').textContent = 'Click a planet';
+            }
+        }
+        
+        function setAgeLevel(level) {
+            ageLevel = level;
+            
+            // Update button states
+            document.querySelectorAll('.age-selector .button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(level === 'elementary' ? 'elemBtn' : 
+                                   level === 'middle' ? 'middleBtn' :
+                                   level === 'high' ? 'highBtn' : 'advBtn').classList.add('active');
+            
+            updateEducationalContent();
+            updateCurrentChallenge();
+        }
+        
+        function updateEducationalContent() {
+            const content = document.getElementById('educationalContent');
+            
+            const educationalInfo = {
+                elementary: `
+                    <strong>Fun Space Facts:</strong><br>
+                    • The Sun is so big that 1 million Earths could fit inside it!<br>
+                    • Jupiter protects Earth by catching dangerous asteroids<br>
+                    • Saturn's rings are made of ice chunks and rocks<br>
+                    • Mars is red because it's rusty!
+                `,
+                middle: `
+                    <strong>Orbital Mechanics Basics:</strong><br>
+                    • Planets closer to the Sun move faster in their orbits<br>
+                    • Gravity keeps planets in orbit around the Sun<br>
+                    • The asteroid belt is between Mars and Jupiter<br>
+                    • Comets come from the outer solar system
+                `,
+                high: `
+                    <strong>Kepler's Laws & Physics:</strong><br>
+                    • 1st Law: Elliptical orbits with Sun at focus<br>
+                    • 2nd Law: Equal areas in equal times<br>
+                    • 3rd Law: T² ∝ a³ (period² ∝ distance³)<br>
+                    • Escape velocity: v = √(2GM/r)
+                `,
+                advanced: `
+                    <strong>Advanced Gravitational Dynamics:</strong><br>
+                    • Three-body problem creates chaotic motion<br>
+                    • Lagrange points: gravitational equilibrium<br>
+                    • Tidal forces: F ∝ m/r³ (gradient of gravity)<br>
+                    • Orbital resonances stabilize/destabilize orbits
+                `
+            };
+            
+            content.innerHTML = educationalInfo[ageLevel];
+        }
+        
+        function updateCurrentChallenge() {
+            const challengeList = challenges[ageLevel];
+            const challenge = challengeList[currentChallenge % challengeList.length];
+            
+            document.getElementById('currentChallenge').innerHTML = `
+                <p><strong>${challenge.title}:</strong></p>
+                <p>${challenge.desc}</p>
+                <p><em>Task: ${challenge.task}</em></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%" id="challengeProgress"></div>
+                </div>
+                <button class="button" onclick="nextChallenge()">Next Challenge</button>
+            `;
+        }
+        
+        function checkChallengeProgress() {
+            // Simple progress tracking based on interactions
+            const progress = Math.min(100, selectedBodies.length * 50);
+            document.getElementById('challengeProgress').style.width = progress + '%';
+        }
+        
+        function nextChallenge() {
+            currentChallenge++;
+            updateCurrentChallenge();
+        }
+        
+        function focusOnBody(bodyKey) {
+            focusedBody = bodyKey;
+            const body = celestialBodies[bodyKey];
+            camera.x = body.x;
+            camera.y = body.y;
+            camera.zoom = bodyKey === 'sun' ? 0.5 : bodyKey === 'jupiter' ? 1 : 2;
+            selectBody(bodyKey);
+        }
+        
+        function togglePause() {
+            isPaused = !isPaused;
+            document.getElementById('pauseBtn').textContent = isPaused ? 'Play' : 'Pause';
+        }
+        
+        function resetTime() {
+            time = 0;
+            camera = { x: 0, y: 0, zoom: 0.8, rotation: 0 };
+            focusedBody = null;
+            Object.keys(trails).forEach(key => trails[key] = []);
+        }
+        
+        function setTimeSpeed(speed) {
+            timeSpeed = parseFloat(speed);
+            document.getElementById('speedDisplay').textContent = speed + 'x';
+        }
+        
+        function timeWarp() {
+            timeWarpActive = !timeWarpActive;
+            if (timeWarpActive) {
+                setTimeSpeed(20);
+                document.getElementById('speedSlider').value = 20;
+                document.getElementById('warpBtn').classList.add('active');
+            } else {
+                setTimeSpeed(1);
+                document.getElementById('speedSlider').value = 1;
+                document.getElementById('warpBtn').classList.remove('active');
+            }
+        }
+        
+        function toggleOrbits() {
+            showOrbits = !showOrbits;
+            document.getElementById('orbitsBtn').classList.toggle('active');
+        }
+        
+        function toggleLabels() {
+            showLabels = !showLabels;
+            document.getElementById('labelsBtn').classList.toggle('active');
+        }
+        
+        function togglePhysics() {
+            showPhysicsInfo = !showPhysicsInfo;
+            document.getElementById('physicsBtn').classList.toggle('active');
+            if (selectedBodies.length > 0) {
+                updateInfoPanel(selectedBodies[selectedBodies.length - 1]);
+            }
+        }
+        
+        function toggleForces() {
+            showForces = !showForces;
+            document.getElementById('forcesBtn').classList.toggle('active');
+        }
+        
+        function toggleTrails() {
+            showTrails = !showTrails;
+            document.getElementById('trailsBtn').classList.toggle('active');
+            if (!showTrails) {
+                Object.keys(trails).forEach(key => trails[key] = []);
+            }
+        }
+        
+        function launchMission(target) {
+            missionActive = true;
+            focusOnBody('earth');
+            
+            setTimeout(() => {
+                focusOnBody(target);
+                alert(`Mission to ${celestialBodies[target].name} launched! Observe the trajectory and orbital mechanics.`);
+            }, 2000);
+        }
+        
+        function showLagrangePoints() {
+            alert('Lagrange Points are gravitational equilibrium points! In the Earth-Moon system, L4 and L5 points form equilateral triangles. These are stable points where small objects can orbit.');
+            focusOnBody('earth');
+        }
+        
+        function animate() {
+            updatePositions();
+            render();
+            requestAnimationFrame(animate);
+        }
+        
+        // Mobile panel management
+        function showMobilePanel(panelName) {
+            if (window.innerWidth > 767) return;
+            
+            activeMobilePanel = panelName;
+            
+            // Hide all panels
+            document.getElementById('controlPanel').style.display = 'none';
+            document.getElementById('infoPanel').style.display = 'none';
+            document.getElementById('challengePanel').style.display = 'none';
+            document.getElementById('toolsPanel').style.display = 'none';
+            
+            // Remove active class from info panel
+            document.getElementById('infoPanel').classList.remove('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected panel
+            switch(panelName) {
+                case 'controls':
+                    document.getElementById('controlPanel').style.display = 'block';
+                    document.getElementById('mobileControlsBtn').classList.add('active');
+                    break;
+                case 'info':
+                    document.getElementById('infoPanel').style.display = 'block';
+                    document.getElementById('infoPanel').classList.add('active');
+                    document.getElementById('mobileInfoBtn').classList.add('active');
+                    break;
+                case 'challenges':
+                    document.getElementById('challengePanel').style.display = 'block';
+                    document.getElementById('mobileChallengesBtn').classList.add('active');
+                    break;
+                case 'tools':
+                    document.getElementById('toolsPanel').style.display = 'block';
+                    document.getElementById('mobileToolsBtn').classList.add('active');
+                    break;
+            }
+        }
+        
+        function toggleMobilePause() {
+            togglePause();
+            const btn = document.getElementById('mobilePauseBtn');
+            btn.textContent = isPaused ? '▶️' : '⏸️';
+        }
+        
+        // Initialize the game
+        init();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9832f9f73275dae7',t:'MTc1ODU1NjQyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

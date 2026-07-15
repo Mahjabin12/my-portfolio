@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Best Hotels and Restaurants in Chittagong - Find accommodation and dining options">
+    <title>Hotels & Restaurants - Chittagong Tourism</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.9) 0%, rgba(74, 124, 44, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600') center/cover;
+            padding: 5rem 0 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--accent-green);
+            background: white;
+            color: var(--primary-green);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .hotels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .hotel-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hotel-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hotel-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-gold);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .hotel-content {
+            padding: 1.5rem;
+        }
+
+        .hotel-name {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .hotel-rating {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hotel-location {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hotel-description {
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .hotel-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-tag {
+            background: var(--bg-cream);
+            color: var(--secondary-green);
+            padding: 0.35rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .hotel-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .hotel-contact {
+            color: var(--secondary-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .hotel-link {
+            background: var(--primary-green);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .hotel-link:hover {
+            background: var(--secondary-green);
+        }
+
+        @media (max-width: 968px) {
+            .hotels-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>চট্টগ্রাম <span>Tourism</span></h1>
+                    <p class="tagline">Gateway to the Hills & Sea</p>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="../index.html">Home</a>
+                    <a href="tourist-spots.html">Tourist Spots</a>
+                    <a href="history.html">History & Culture</a>
+                    <a href="personalities.html">Famous People</a>
+                    <a href="hotels.html" class="active">Hotels & Restaurants</a>
+                    <a href="travel-guide.html">Travel Guide</a>
+                    <a href="gallery.html">Gallery</a>
+                </nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Hotels & Restaurants</h1>
+            <p>Find the best places to stay and dine in Chittagong</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="filter-section">
+                <h3 style="text-align: center; color: var(--primary-green); margin-bottom: 1.5rem;">Filter By Category</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="hotel">Hotels</button>
+                    <button class="filter-btn" data-filter="restaurant">Restaurants</button>
+                    <button class="filter-btn" data-filter="luxury">Luxury</button>
+                    <button class="filter-btn" data-filter="budget">Budget-Friendly</button>
+                </div>
+            </div>
+
+            <!-- Hotels and Restaurants Grid -->
+            <div class="hotels-grid" id="hotelsGrid">
+                
+                <!-- Hotel Agrabad -->
+                <div class="hotel-card" data-category="hotel luxury" id="agrabad">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600');">
+                        <span class="hotel-badge">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Hotel Agrabad</h3>
+                        <div class="hotel-rating">★★★★★ (4.5/5)</div>
+                        <div class="hotel-location">
+                            📍 Agrabad C/A, City Center
+                        </div>
+                        <p class="hotel-description">
+                            Luxury hotel in the heart of Chittagong's business district with world-class amenities, fine dining restaurants, and excellent service.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Free WiFi</span>
+                            <span class="feature-tag">Restaurant</span>
+                            <span class="feature-tag">Pool</span>
+                            <span class="feature-tag">Gym</span>
+                            <span class="feature-tag">Parking</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2502030</span>
+                            <a href="#" class="hotel-link">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Peninsula Chittagong -->
+                <div class="hotel-card" data-category="hotel luxury" id="peninsula">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600');">
+                        <span class="hotel-badge">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Peninsula Chittagong</h3>
+                        <div class="hotel-rating">★★★★★ (4.6/5)</div>
+                        <div class="hotel-location">
+                            📍 O.R. Nizam Road, GEC Circle
+                        </div>
+                        <p class="hotel-description">
+                            Premium hotel offering modern facilities, spacious rooms, rooftop restaurant with city views, and exceptional hospitality.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Free WiFi</span>
+                            <span class="feature-tag">Rooftop Dining</span>
+                            <span class="feature-tag">Spa</span>
+                            <span class="feature-tag">Conference Hall</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2853081</span>
+                            <a href="#" class="hotel-link">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Radisson Blu -->
+                <div class="hotel-card" data-category="hotel luxury" id="radisson">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600');">
+                        <span class="hotel-badge">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Radisson Blu Chittagong Bay View</h3>
+                        <div class="hotel-rating">★★★★★ (4.7/5)</div>
+                        <div class="hotel-location">
+                            📍 Bay View Area, Patenga
+                        </div>
+                        <p class="hotel-description">
+                            International chain hotel with stunning bay views, multiple dining options, infinity pool, and state-of-the-art facilities.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Sea View</span>
+                            <span class="feature-tag">Infinity Pool</span>
+                            <span class="feature-tag">Multiple Restaurants</span>
+                            <span class="feature-tag">Airport Shuttle</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2865000</span>
+                            <a href="#" class="hotel-link">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel Al-Amin -->
+                <div class="hotel-card" data-category="hotel budget" id="alamin">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600');">
+                        <span class="hotel-badge">⭐⭐⭐</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Hotel Al-Amin</h3>
+                        <div class="hotel-rating">★★★☆☆ (3.8/5)</div>
+                        <div class="hotel-location">
+                            📍 Station Road, Agrabad
+                        </div>
+                        <p class="hotel-description">
+                            Budget-friendly hotel with clean rooms, basic amenities, and convenient location near railway station and bus terminals.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">WiFi</span>
+                            <span class="feature-tag">AC Rooms</span>
+                            <span class="feature-tag">Restaurant</span>
+                            <span class="feature-tag">24/7 Service</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2511234</span>
+                            <a href="#" class="hotel-link">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mezban Restaurant -->
+                <div class="hotel-card" data-category="restaurant" id="mezban">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600');">
+                        <span class="hotel-badge">Must Try!</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Mezban Restaurant</h3>
+                        <div class="hotel-rating">★★★★★ (4.8/5)</div>
+                        <div class="hotel-location">
+                            📍 Jubilee Road, Khatunganj
+                        </div>
+                        <p class="hotel-description">
+                            Famous for authentic Chittagonian Mezbani beef curry. A must-visit for food lovers wanting to experience traditional local cuisine.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Mezbani Beef</span>
+                            <span class="feature-tag">Traditional</span>
+                            <span class="feature-tag">Local Cuisine</span>
+                            <span class="feature-tag">Halal</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2628971</span>
+                            <a href="#" class="hotel-link">Visit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Handi Restaurant -->
+                <div class="hotel-card" data-category="restaurant" id="handi">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600');">
+                        <span class="hotel-badge">Popular</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Handi Restaurant</h3>
+                        <div class="hotel-rating">★★★★☆ (4.3/5)</div>
+                        <div class="hotel-location">
+                            📍 GEC Circle, Multiple Branches
+                        </div>
+                        <p class="hotel-description">
+                            Popular chain restaurant serving Pakistani and Indian cuisine, famous for their biryanis, kebabs, and tandoori items.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Biryani</span>
+                            <span class="feature-tag">Tandoori</span>
+                            <span class="feature-tag">Family Dining</span>
+                            <span class="feature-tag">Takeaway</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2550606</span>
+                            <a href="#" class="hotel-link">Visit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nando's Chittagong -->
+                <div class="hotel-card" data-category="restaurant" id="nandos">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1598514982901-ae62764ae75e?w=600');">
+                        <span class="hotel-badge">International</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Nando's Chittagong</h3>
+                        <div class="hotel-rating">★★★★☆ (4.4/5)</div>
+                        <div class="hotel-location">
+                            📍 Zakir Hossain Road, GEC
+                        </div>
+                        <p class="hotel-description">
+                            International chain restaurant famous for peri-peri grilled chicken. Great ambiance, perfect for families and groups.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Grilled Chicken</span>
+                            <span class="feature-tag">International</span>
+                            <span class="feature-tag">Modern Ambiance</span>
+                            <span class="feature-tag">Card Payment</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 01XXX-XXXXXX</span>
+                            <a href="#" class="hotel-link">Visit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spice & Rice -->
+                <div class="hotel-card" data-category="restaurant" id="spicerice">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600');">
+                        <span class="hotel-badge">Multi-Cuisine</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Spice & Rice</h3>
+                        <div class="hotel-rating">★★★★☆ (4.2/5)</div>
+                        <div class="hotel-location">
+                            📍 Agrabad, City Center
+                        </div>
+                        <p class="hotel-description">
+                            Multi-cuisine restaurant offering Chinese, Thai, Indian, and Continental dishes. Excellent ambiance and service.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Multi-Cuisine</span>
+                            <span class="feature-tag">Fine Dining</span>
+                            <span class="feature-tag">Private Cabins</span>
+                            <span class="feature-tag">AC</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2520789</span>
+                            <a href="#" class="hotel-link">Visit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Foy's Lake Resort -->
+                <div class="hotel-card" data-category="hotel" id="foys-resort">
+                    <div class="hotel-image" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600');">
+                        <span class="hotel-badge">⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="hotel-content">
+                        <h3 class="hotel-name">Foy's Lake Resort</h3>
+                        <div class="hotel-rating">★★★★☆ (4.1/5)</div>
+                        <div class="hotel-location">
+                            📍 Foy's Lake, Khulshi Hills
+                        </div>
+                        <p class="hotel-description">
+                            Beautiful resort located by Foy's Lake with stunning hill views. Perfect for weekend getaways and family vacations.
+                        </p>
+                        <div class="hotel-features">
+                            <span class="feature-tag">Lake View</span>
+                            <span class="feature-tag">Restaurant</span>
+                            <span class="feature-tag">Amusement Park Access</span>
+                            <span class="feature-tag">Nature</span>
+                        </div>
+                        <div class="hotel-footer">
+                            <span class="hotel-contact">📞 031-2502345</span>
+                            <a href="#" class="hotel-link">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Chittagong</h3>
+                    <p>Chittagong is Bangladesh's second-largest city and the country's main seaport. Known for its natural beauty, it's a perfect destination for tourists seeking both adventure and relaxation.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                        <li><a href="hotels.html">Hotels & Restaurants</a></li>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Important Info</h3>
+                    <ul>
+                        <li><a href="history.html">History & Culture</a></li>
+                        <li><a href="personalities.html">Famous Personalities</a></li>
+                        <li><a href="#emergency">Emergency Numbers</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li>Police: 999</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Helpline: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chittagong Tourism. Promoting the beauty of Port City. Made with ❤️ for tourists.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            <div class="chatbot-title">
+                <span class="chatbot-icon">💬</span>
+                <span>CTG Tourism Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot-message">
+                <p>আসসালামু আলাইকুম! Welcome to Chittagong Tourism. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-query="tourist spots">Tourist Spots</button>
+            <button class="quick-reply-btn" data-query="hotels">Hotels</button>
+            <button class="quick-reply-btn" data-query="how to reach">How to Reach</button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Ask about Chittagong..." class="chatbot-input">
+            <button class="chatbot-send" id="chatbotSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/chatbot.js"></script>
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const hotelCards = document.querySelectorAll('.hotel-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                hotelCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const categories = card.getAttribute('data-category');
+                        if (categories.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

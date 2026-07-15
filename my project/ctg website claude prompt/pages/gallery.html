@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Photo gallery of Chittagong - Beautiful images of tourist spots, culture, and landscapes">
+    <title>Photo Gallery - Chittagong Tourism</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.9) 0%, rgba(74, 124, 44, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600') center/cover;
+            padding: 5rem 0 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--accent-green);
+            color: var(--primary-green);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            background: #f0f0f0;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(45, 80, 22, 0.9) 0%, transparent 100%);
+            padding: 1.5rem;
+            color: white;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        @media (max-width: 968px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .lightbox-nav {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>চট্টগ্রাম <span>Tourism</span></h1>
+                    <p class="tagline">Gateway to the Hills & Sea</p>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="../index.html">Home</a>
+                    <a href="tourist-spots.html">Tourist Spots</a>
+                    <a href="history.html">History & Culture</a>
+                    <a href="personalities.html">Famous People</a>
+                    <a href="hotels.html">Hotels & Restaurants</a>
+                    <a href="travel-guide.html">Travel Guide</a>
+                    <a href="gallery.html" class="active">Gallery</a>
+                </nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Photo Gallery</h1>
+            <p>Explore Chittagong through beautiful images</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="content-section">
+        <div class="container">
+            
+            <!-- Filters -->
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All Photos</button>
+                <button class="filter-btn" data-filter="beaches">Beaches</button>
+                <button class="filter-btn" data-filter="hills">Hills & Nature</button>
+                <button class="filter-btn" data-filter="heritage">Heritage Sites</button>
+                <button class="filter-btn" data-filter="city">City Life</button>
+                <button class="filter-btn" data-filter="food">Food & Culture</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="galleryGrid">
+                
+                <!-- Beach Images -->
+                <div class="gallery-item" data-category="beaches">
+                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600" alt="Patenga Beach">
+                    <div class="gallery-overlay">
+                        <h3>Patenga Beach</h3>
+                        <p>Beautiful sunset at the sea beach</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="beaches">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Beach View">
+                    <div class="gallery-overlay">
+                        <h3>Bay of Bengal</h3>
+                        <p>Serene coastal beauty</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="beaches">
+                    <img src="https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=600" alt="Beach Sunset">
+                    <div class="gallery-overlay">
+                        <h3>Sunset View</h3>
+                        <p>Golden hour at Patenga</p>
+                    </div>
+                </div>
+
+                <!-- Hills & Nature -->
+                <div class="gallery-item" data-category="hills">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600" alt="Foy's Lake">
+                    <div class="gallery-overlay">
+                        <h3>Foy's Lake</h3>
+                        <p>Tranquil lake surrounded by hills</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="hills">
+                    <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600" alt="Hill View">
+                    <div class="gallery-overlay">
+                        <h3>Chandranath Hill</h3>
+                        <p>Panoramic view from the hilltop</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="hills">
+                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600" alt="Natural Beauty">
+                    <div class="gallery-overlay">
+                        <h3>Green Hills</h3>
+                        <p>Lush landscapes of Chittagong</p>
+                    </div>
+                </div>
+
+                <!-- Heritage Sites -->
+                <div class="gallery-item" data-category="heritage">
+                    <img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=600" alt="Bayazid Bostami">
+                    <div class="gallery-overlay">
+                        <h3>Bayazid Bostami Shrine</h3>
+                        <p>Historic religious site</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="heritage">
+                    <img src="https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=600" alt="Museum">
+                    <div class="gallery-overlay">
+                        <h3>Ethnological Museum</h3>
+                        <p>Preserving cultural heritage</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="heritage">
+                    <img src="https://images.unsplash.com/photo-1604997477742-8f0b58e6afb2?w=600" alt="Historical Building">
+                    <div class="gallery-overlay">
+                        <h3>Colonial Architecture</h3>
+                        <p>British era buildings</p>
+                    </div>
+                </div>
+
+                <!-- City Life -->
+                <div class="gallery-item" data-category="city">
+                    <img src="https://images.unsplash.com/photo-1581447109200-bf2769116351?w=600" alt="Karnaphuli River">
+                    <div class="gallery-overlay">
+                        <h3>Karnaphuli River</h3>
+                        <p>The lifeline of Chittagong</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="city">
+                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600" alt="City Lights">
+                    <div class="gallery-overlay">
+                        <h3>City at Night</h3>
+                        <p>Vibrant urban landscape</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="city">
+                    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600" alt="Port City">
+                    <div class="gallery-overlay">
+                        <h3>Chittagong Port</h3>
+                        <p>Bangladesh's main seaport</p>
+                    </div>
+                </div>
+
+                <!-- Food & Culture -->
+                <div class="gallery-item" data-category="food">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600" alt="Mezbani">
+                    <div class="gallery-overlay">
+                        <h3>Mezbani Beef</h3>
+                        <p>Traditional Chittagonian cuisine</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="food">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600" alt="Food">
+                    <div class="gallery-overlay">
+                        <h3>Local Delicacies</h3>
+                        <p>Authentic flavors of Chittagong</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="food">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Restaurant">
+                    <div class="gallery-overlay">
+                        <h3>Dining Experience</h3>
+                        <p>Traditional restaurant ambiance</p>
+                    </div>
+                </div>
+
+                <!-- More Beach Images -->
+                <div class="gallery-item" data-category="beaches">
+                    <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=600" alt="Beach Activities">
+                    <div class="gallery-overlay">
+                        <h3>Beach Activities</h3>
+                        <p>Family fun at the beach</p>
+                    </div>
+                </div>
+
+                <!-- More Hills -->
+                <div class="gallery-item" data-category="hills">
+                    <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600" alt="Forest">
+                    <div class="gallery-overlay">
+                        <h3>Green Forests</h3>
+                        <p>Natural biodiversity</p>
+                    </div>
+                </div>
+
+                <!-- More City -->
+                <div class="gallery-item" data-category="city">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600" alt="Urban Development">
+                    <div class="gallery-overlay">
+                        <h3>Modern Chittagong</h3>
+                        <p>Growing metropolitan city</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">×</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Chittagong</h3>
+                    <p>Chittagong is Bangladesh's second-largest city and the country's main seaport. Known for its natural beauty, it's a perfect destination for tourists seeking both adventure and relaxation.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                        <li><a href="hotels.html">Hotels & Restaurants</a></li>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Important Info</h3>
+                    <ul>
+                        <li><a href="history.html">History & Culture</a></li>
+                        <li><a href="personalities.html">Famous Personalities</a></li>
+                        <li><a href="#emergency">Emergency Numbers</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li>Police: 999</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Helpline: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chittagong Tourism. Promoting the beauty of Port City. Made with ❤️ for tourists.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            <div class="chatbot-title">
+                <span class="chatbot-icon">💬</span>
+                <span>CTG Tourism Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot-message">
+                <p>আসসালামু আলাইকুম! Welcome to Chittagong Tourism. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-query="tourist spots">Tourist Spots</button>
+            <button class="quick-reply-btn" data-query="hotels">Hotels</button>
+            <button class="quick-reply-btn" data-query="how to reach">How to Reach</button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Ask about Chittagong..." class="chatbot-input">
+            <button class="chatbot-send" id="chatbotSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/chatbot.js"></script>
+    <script>
+        // Gallery Filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all') {
+                        item.style.display = 'block';
+                    } else {
+                        const category = item.getAttribute('data-category');
+                        if (category === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        let currentImageIndex = 0;
+        const visibleItems = () => Array.from(galleryItems).filter(item => item.style.display !== 'none');
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const caption = item.querySelector('.gallery-overlay h3').textContent;
+                
+                lightboxImage.src = img.src;
+                lightboxCaption.textContent = caption;
+                lightbox.classList.add('active');
+                
+                currentImageIndex = visibleItems().indexOf(item);
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        lightboxPrev.addEventListener('click', () => {
+            const items = visibleItems();
+            currentImageIndex = (currentImageIndex - 1 + items.length) % items.length;
+            const item = items[currentImageIndex];
+            lightboxImage.src = item.querySelector('img').src;
+            lightboxCaption.textContent = item.querySelector('.gallery-overlay h3').textContent;
+        });
+
+        lightboxNext.addEventListener('click', () => {
+            const items = visibleItems();
+            currentImageIndex = (currentImageIndex + 1) % items.length;
+            const item = items[currentImageIndex];
+            lightboxImage.src = item.querySelector('img').src;
+            lightboxCaption.textContent = item.querySelector('.gallery-overlay h3').textContent;
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+            } else if (e.key === 'ArrowLeft') {
+                lightboxPrev.click();
+            } else if (e.key === 'ArrowRight') {
+                lightboxNext.click();
+            }
+        });
+    </script>
+</body>
+</html>

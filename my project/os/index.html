@@ -1,0 +1,41 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File and Text Encryption/Decryption</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>File and Text Encryption & Decryption</h1>
+
+        <!-- Text Encryption/Decryption -->
+        <form id="textForm">
+            <label for="textInput">Enter Text:</label>
+            <input type="text" id="textInput" placeholder="Type text here" required />
+            <select id="textAction">
+                <option value="encrypt">Encrypt</option>
+                <option value="decrypt">Decrypt</option>
+            </select>
+            <button type="submit">Submit Text</button>
+        </form>
+        <button id="showEncrypt">Show Encrypted Text</button>
+        <button id="showDecrypt">Show Decrypted Text</button>
+        <div id="resultDisplay" style="margin-top: 10px; font-weight: bold;"></div>
+
+        <!-- File Encryption/Decryption -->
+        <form id="fileForm" enctype="multipart/form-data">
+            <label for="fileInput">Upload File:</label>
+            <input type="file" id="fileInput" required />
+            <select id="fileAction">
+                <option value="encrypt">Encrypt</option>
+                <option value="decrypt">Decrypt</option>
+            </select>
+            <button type="submit">Submit File</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the rich history and culture of Chittagong - From ancient times to modern era">
+    <title>History & Culture - Chittagong Tourism</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.9) 0%, rgba(74, 124, 44, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1604997477742-8f0b58e6afb2?w=1600') center/cover;
+            padding: 5rem 0 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .timeline-section {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--accent-green);
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: var(--bg-cream);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 45%;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .timeline-item:nth-child(even) .timeline-date {
+            right: -100px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-date {
+            left: -100px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--accent-green);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .culture-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .culture-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .culture-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .culture-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .culture-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 968px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+
+            .timeline-date {
+                position: static;
+                transform: none;
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+
+            .timeline-item:nth-child(even) .timeline-date,
+            .timeline-item:nth-child(odd) .timeline-date {
+                right: auto;
+                left: auto;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>চট্টগ্রাম <span>Tourism</span></h1>
+                    <p class="tagline">Gateway to the Hills & Sea</p>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="../index.html">Home</a>
+                    <a href="tourist-spots.html">Tourist Spots</a>
+                    <a href="history.html" class="active">History & Culture</a>
+                    <a href="personalities.html">Famous People</a>
+                    <a href="hotels.html">Hotels & Restaurants</a>
+                    <a href="travel-guide.html">Travel Guide</a>
+                    <a href="gallery.html">Gallery</a>
+                </nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>History & Cultural Heritage</h1>
+            <p>Explore over 1000 years of rich history and vibrant culture</p>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="content-section">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="color: var(--primary-green); font-size: 2.5rem; margin-bottom: 1.5rem;">The Story of Chittagong</h2>
+                <p style="color: var(--text-gray); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Chittagong, known as চট্টগ্রাম in Bengali, is one of the oldest ports in the Bay of Bengal. The city's history spans over a millennium, with references found in ancient texts and chronicles. Its strategic location made it a coveted prize for various kingdoms and colonial powers throughout history.
+                </p>
+                <p style="color: var(--text-gray); font-size: 1.1rem; line-height: 1.8;">
+                    The name "Chittagong" is believed to have derived from the Arabic word "Shat Ganga" (where the Ganges flows) or from "Chatigaon" (village of Chatis). The city has witnessed the rise and fall of kingdoms, colonial rule, and ultimately became an integral part of modern Bangladesh.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary-green); font-size: 2.5rem; margin-bottom: 4rem;">Historical Timeline</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">4th Century</div>
+                    <div class="timeline-content">
+                        <h3>Ancient Period</h3>
+                        <p>Early settlements and trade activities. The region was part of the Samatata and Harikela kingdoms. Chinese travelers' accounts mention this as an important port.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">9th-10th Century</div>
+                    <div class="timeline-content">
+                        <h3>Arab Traders</h3>
+                        <p>Arab merchants established trade routes. The port became known for exporting fine muslin, silk, and spices to the Middle East and beyond.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1340</div>
+                    <div class="timeline-content">
+                        <h3>Sultanate Rule</h3>
+                        <p>Fakhruddin Mubarak Shah annexed Chittagong to the Bengal Sultanate. The city flourished as a major trading hub under Muslim rule.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1538-1666</div>
+                    <div class="timeline-content">
+                        <h3>Arakanese Period</h3>
+                        <p>Chittagong was ruled by the Arakanese Kingdom of Mrauk U. Portuguese traders and pirates also operated from here during this period.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1666</div>
+                    <div class="timeline-content">
+                        <h3>Mughal Conquest</h3>
+                        <p>Buzurg Umed Khan conquered Chittagong for the Mughal Empire under Aurangzeb. The city was renamed "Islamabad" and became a major port.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1760</div>
+                    <div class="timeline-content">
+                        <h3>British East India Company</h3>
+                        <p>The British took control of Chittagong. It became the main port for East Pakistan (now Bangladesh) and a center for tea and jute trade.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1930</div>
+                    <div class="timeline-content">
+                        <h3>Freedom Movement</h3>
+                        <p>Chittagong became a stronghold of the independence movement. The famous Chittagong Armoury Raid led by Surya Sen marked a significant moment.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1947</div>
+                    <div class="timeline-content">
+                        <h3>Partition of India</h3>
+                        <p>Chittagong became part of East Pakistan. The port continued to grow as the main sea gateway for the eastern region.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1971</div>
+                    <div class="timeline-content">
+                        <h3>Liberation War</h3>
+                        <p>Chittagong played a crucial role in Bangladesh's independence. The Declaration of Independence was broadcast from Kalurghat Radio Station.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Present Day</div>
+                    <div class="timeline-content">
+                        <h3>Modern Chittagong</h3>
+                        <p>Today, Chittagong is Bangladesh's commercial capital, housing the country's main seaport and contributing significantly to the national economy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section class="content-section" style="background: var(--bg-cream);">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary-green); font-size: 2.5rem; margin-bottom: 1rem;">Cultural Heritage</h2>
+            <p style="text-align: center; color: var(--text-gray); font-size: 1.1rem; max-width: 700px; margin: 0 auto 3rem;">
+                Chittagong's culture is a beautiful blend of Bengali traditions with influences from Arab, Persian, and tribal communities.
+            </p>
+
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <div class="culture-icon">🗣️</div>
+                    <h3>Chittagonian Dialect</h3>
+                    <p>The Chittagonian language (চাটগাঁইয়া or চিটাইঙ্গা) is a distinct Indo-Aryan language spoken by over 13 million people. It has significant phonological and lexical differences from standard Bengali.</p>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">🎭</div>
+                    <h3>Traditional Arts</h3>
+                    <p>Rich tradition of folk music, dance, and theater. Maizbhandari music and Jari-Sari performances are popular cultural expressions unique to the region.</p>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">🍲</div>
+                    <h3>Cuisine</h3>
+                    <p>Famous for Mezbani beef curry (গরুর মাংস), dried fish (শুটকি), and unique seafood preparations. The cuisine is spicier than other regions of Bangladesh.</p>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">🎉</div>
+                    <h3>Festivals</h3>
+                    <p>Celebrates all major Bengali festivals plus unique local celebrations. The Eid-ul-Azha Mezbani tradition is particularly grand in Chittagong.</p>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">🏺</div>
+                    <h3>Handicrafts</h3>
+                    <p>Traditional crafts include bamboo products, pottery, and handloom textiles. Tribal communities contribute unique handicrafts and weaving traditions.</p>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">🕌</div>
+                    <h3>Religious Harmony</h3>
+                    <p>Home to diverse religious communities living in harmony - Muslims, Hindus, Buddhists, and Christians. Many ancient temples, mosques, and churches dot the landscape.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notable Facts Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary-green); font-size: 2.5rem; margin-bottom: 3rem;">Interesting Historical Facts</h2>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="background: white; padding: 2rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--primary-green); margin-bottom: 0.5rem;">⚓ Ancient Port City</h3>
+                    <p style="color: var(--text-gray); line-height: 1.7;">Chittagong was mentioned by the great Chinese traveler Fahien in the 5th century and later by Ibn Battuta in the 14th century as a major port in the region.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--primary-green); margin-bottom: 0.5rem;">🎙️ Birthplace of Independence</h3>
+                    <p style="color: var(--text-gray); line-height: 1.7;">The Declaration of Independence of Bangladesh was first broadcast from Kalurghat Radio Station in Chittagong on March 26, 1971, making it a sacred site in Bangladesh's history.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--primary-green); margin-bottom: 0.5rem;">⚔️ Chittagong Armoury Raid</h3>
+                    <p style="color: var(--text-gray); line-height: 1.7;">On April 18, 1930, revolutionaries led by Surya Sen (Masterda) raided the Chittagong armoury, a bold act against British colonial rule that inspired the freedom movement.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--primary-green); margin-bottom: 0.5rem;">🌍 Strategic Importance</h3>
+                    <p style="color: var(--text-gray); line-height: 1.7;">During World War II, Chittagong served as a crucial supply base for Allied forces fighting in the Burma campaign. The Commonwealth War Cemetery commemorates those who died.</p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: var(--border-radius); border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--primary-green); margin-bottom: 0.5rem;">🏛️ Cultural Melting Pot</h3>
+                    <p style="color: var(--text-gray); line-height: 1.7;">The city has been influenced by Bengali, Arab, Persian, Portuguese, Arakanese, and British cultures, creating a unique multicultural heritage that's reflected in its architecture, language, and traditions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Chittagong</h3>
+                    <p>Chittagong is Bangladesh's second-largest city and the country's main seaport. Known for its natural beauty, it's a perfect destination for tourists seeking both adventure and relaxation.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                        <li><a href="hotels.html">Hotels & Restaurants</a></li>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Important Info</h3>
+                    <ul>
+                        <li><a href="history.html">History & Culture</a></li>
+                        <li><a href="personalities.html">Famous Personalities</a></li>
+                        <li><a href="#emergency">Emergency Numbers</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li>Police: 999</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Helpline: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chittagong Tourism. Promoting the beauty of Port City. Made with ❤️ for tourists.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            <div class="chatbot-title">
+                <span class="chatbot-icon">💬</span>
+                <span>CTG Tourism Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot-message">
+                <p>আসসালামু আলাইকুম! Welcome to Chittagong Tourism. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-query="tourist spots">Tourist Spots</button>
+            <button class="quick-reply-btn" data-query="hotels">Hotels</button>
+            <button class="quick-reply-btn" data-query="how to reach">How to Reach</button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Ask about Chittagong..." class="chatbot-input">
+            <button class="chatbot-send" id="chatbotSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/chatbot.js"></script>
+</body>
+</html>

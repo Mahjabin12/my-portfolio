@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Famous personalities from Chittagong - Leaders, artists, athletes, and achievers">
+    <title>Famous Personalities - Chittagong Tourism</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.9) 0%, rgba(74, 124, 44, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600') center/cover;
+            padding: 5rem 0 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--accent-green);
+            color: var(--primary-green);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .personalities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .person-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .person-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .person-image {
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .person-category-badge {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(45, 80, 22, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .person-content {
+            padding: 2rem;
+        }
+
+        .person-name {
+            font-size: 1.6rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .person-title {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .person-bio {
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .person-achievements {
+            background: var(--bg-cream);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .person-achievements h4 {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .person-achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .person-achievements li {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            padding: 0.25rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .person-achievements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        @media (max-width: 968px) {
+            .personalities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>চট্টগ্রাম <span>Tourism</span></h1>
+                    <p class="tagline">Gateway to the Hills & Sea</p>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="../index.html">Home</a>
+                    <a href="tourist-spots.html">Tourist Spots</a>
+                    <a href="history.html">History & Culture</a>
+                    <a href="personalities.html" class="active">Famous People</a>
+                    <a href="hotels.html">Hotels & Restaurants</a>
+                    <a href="travel-guide.html">Travel Guide</a>
+                    <a href="gallery.html">Gallery</a>
+                </nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Famous Personalities from Chittagong</h1>
+            <p>Celebrating the heroes, artists, and achievers who shaped our history</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            
+            <!-- Category Navigation -->
+            <div class="category-nav">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="freedom-fighters">Freedom Fighters</button>
+                <button class="category-btn" data-category="politics">Politics</button>
+                <button class="category-btn" data-category="literature">Literature</button>
+                <button class="category-btn" data-category="sports">Sports</button>
+                <button class="category-btn" data-category="arts">Arts & Culture</button>
+            </div>
+
+            <!-- Personalities Grid -->
+            <div class="personalities-grid" id="personalitiesGrid">
+                
+                <!-- Surya Sen -->
+                <div class="person-card" data-category="freedom-fighters">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600');">
+                        <span class="person-category-badge">Freedom Fighter</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Surya Sen (Masterda)</h3>
+                        <p class="person-title">Revolutionary Leader (1894-1934)</p>
+                        <p class="person-bio">
+                            Known as "Masterda," Surya Sen was a Bengali revolutionary who led the famous Chittagong Armoury Raid in 1930. His fearless leadership against British colonial rule inspired millions and made him a legendary figure in India's independence movement.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Major Achievements:</h4>
+                            <ul>
+                                <li>Led Chittagong Armoury Raid (April 18, 1930)</li>
+                                <li>Established Independent Chittagong (briefly)</li>
+                                <li>Inspired revolutionary movements across India</li>
+                                <li>National hero of Bangladesh</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A.K. Fazlul Huq -->
+                <div class="person-card" data-category="politics">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600');">
+                        <span class="person-category-badge">Politics</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">A.K. Fazlul Huq</h3>
+                        <p class="person-title">Sher-e-Bangla (1873-1962)</p>
+                        <p class="person-bio">
+                            Known as "Sher-e-Bangla" (Tiger of Bengal), A.K. Fazlul Huq was a legendary political leader. Born in Satkhira but had strong connections with Chittagong. He played a crucial role in the Lahore Resolution of 1940 and served as Prime Minister of Bengal.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Major Contributions:</h4>
+                            <ul>
+                                <li>Prime Minister of Bengal (1937-1943)</li>
+                                <li>Introduced Debt Settlement Act for farmers</li>
+                                <li>Founded Krishak Praja Party</li>
+                                <li>Key figure in Pakistan Movement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- M.A. Aziz -->
+                <div class="person-card" data-category="politics">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600');">
+                        <span class="person-category-badge">Politics</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Major Ziaur Rahman</h3>
+                        <p class="person-title">Former President of Bangladesh (1936-1981)</p>
+                        <p class="person-bio">
+                            Born in Bogra but deeply connected to Chittagong, Ziaur Rahman announced Bangladesh's independence from Kalurghat Radio Station in Chittagong. He served as the 6th President of Bangladesh and founded the Bangladesh Nationalist Party (BNP).
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Major Achievements:</h4>
+                            <ul>
+                                <li>Declared Independence from Chittagong (1971)</li>
+                                <li>Sector Commander in Liberation War</li>
+                                <li>President of Bangladesh (1977-1981)</li>
+                                <li>Founded BNP political party</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Syed Mujtaba Ali -->
+                <div class="person-card" data-category="literature">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600');">
+                        <span class="person-category-badge">Literature</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Syed Mujtaba Ali</h3>
+                        <p class="person-title">Renowned Author (1904-1974)</p>
+                        <p class="person-bio">
+                            One of the greatest Bengali writers and linguists. Born in Sylhet but spent significant time in Chittagong. Known for his witty writing style and travelogues, particularly "Deshe Bideshe" which remains a classic in Bengali literature.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Literary Works:</h4>
+                            <ul>
+                                <li>"Deshe Bideshe" (travel memoir)</li>
+                                <li>"Chacha Kahini" (humorous stories)</li>
+                                <li>Fluent in 14 languages</li>
+                                <li>Awarded Ekushey Padak (1975)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sabina Yasmin -->
+                <div class="person-card" data-category="arts">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600');">
+                        <span class="person-category-badge">Arts & Music</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Sabina Yasmin</h3>
+                        <p class="person-title">Legendary Playback Singer (1953-present)</p>
+                        <p class="person-bio">
+                            Born in Chittagong, Sabina Yasmin is one of the most acclaimed playback singers in Bangladesh. With a career spanning over five decades, she has sung over 15,000 songs and won numerous national and international awards.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Achievements:</h4>
+                            <ul>
+                                <li>13 National Film Awards</li>
+                                <li>Independence Day Award (1996)</li>
+                                <li>Ekushey Padak (1984)</li>
+                                <li>Over 15,000 songs recorded</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Akram Khan -->
+                <div class="person-card" data-category="sports">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=600');">
+                        <span class="person-category-badge">Sports</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Akram Khan</h3>
+                        <p class="person-title">Former Cricket Captain (1968-present)</p>
+                        <p class="person-bio">
+                            Born in Chittagong, Akram Khan captained the Bangladesh national cricket team and was a key figure in Bangladesh gaining Test status. Known for his leadership and batting prowess.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Cricket Career:</h4>
+                            <ul>
+                                <li>Captained Bangladesh in their first Test match</li>
+                                <li>Former BCB President</li>
+                                <li>Played 8 Tests and 44 ODIs</li>
+                                <li>Instrumental in Bangladesh cricket development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kazi Nazrul Islam (connection) -->
+                <div class="person-card" data-category="literature">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=600');">
+                        <span class="person-category-badge">Literature</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Kazi Nazrul Islam</h3>
+                        <p class="person-title">National Poet (1899-1976)</p>
+                        <p class="person-bio">
+                            While not born in Chittagong, Nazrul Islam worked as a journalist at "Nabajug" newspaper in Chittagong in the 1920s. His revolutionary poetry and songs inspired the freedom movement. He is the National Poet of Bangladesh.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Legacy:</h4>
+                            <ul>
+                                <li>National Poet of Bangladesh</li>
+                                <li>Wrote "Bidrohi" (The Rebel)</li>
+                                <li>Composed over 3,000 songs</li>
+                                <li>Independence Award (posthumously)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pritilata Waddedar -->
+                <div class="person-card" data-category="freedom-fighters">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600');">
+                        <span class="person-category-badge">Freedom Fighter</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Pritilata Waddedar</h3>
+                        <p class="person-title">Revolutionary (1911-1932)</p>
+                        <p class="person-bio">
+                            Born in Chittagong, Pritilata was a Bengali revolutionary nationalist who fought against British colonial rule. She led a group of revolutionaries to attack the Pahartali European Club in 1932, becoming one of India's first women martyrs.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Revolutionary Acts:</h4>
+                            <ul>
+                                <li>First Indian woman to lead an armed attack</li>
+                                <li>Participated in Chittagong uprising</li>
+                                <li>Headmistress despite young age</li>
+                                <li>Symbol of women empowerment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mohammed Mohsin -->
+                <div class="person-card" data-category="philanthropy">
+                    <div class="person-image" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600');">
+                        <span class="person-category-badge">Philanthropist</span>
+                    </div>
+                    <div class="person-content">
+                        <h3 class="person-name">Haji Mohammed Mohsin</h3>
+                        <p class="person-title">Great Philanthropist (1732-1812)</p>
+                        <p class="person-bio">
+                            One of the greatest philanthropists in the history of Bengal. Though from Hooghly, he donated vast estates in Chittagong for educational and charitable purposes. The Mohsin Fund continues to support students even today.
+                        </p>
+                        <div class="person-achievements">
+                            <h4>Philanthropic Work:</h4>
+                            <ul>
+                                <li>Donated entire estate to charity</li>
+                                <li>Mohsin Fund supports education</li>
+                                <li>Built schools and mosques</li>
+                                <li>Helped thousands of poor students</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Chittagong</h3>
+                    <p>Chittagong is Bangladesh's second-largest city and the country's main seaport. Known for its natural beauty, it's a perfect destination for tourists seeking both adventure and relaxation.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                        <li><a href="hotels.html">Hotels & Restaurants</a></li>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Important Info</h3>
+                    <ul>
+                        <li><a href="history.html">History & Culture</a></li>
+                        <li><a href="personalities.html">Famous Personalities</a></li>
+                        <li><a href="#emergency">Emergency Numbers</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li>Police: 999</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Helpline: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chittagong Tourism. Promoting the beauty of Port City. Made with ❤️ for tourists.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            <div class="chatbot-title">
+                <span class="chatbot-icon">💬</span>
+                <span>CTG Tourism Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot-message">
+                <p>আসসালামু আলাইকুম! Welcome to Chittagong Tourism. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-query="tourist spots">Tourist Spots</button>
+            <button class="quick-reply-btn" data-query="hotels">Hotels</button>
+            <button class="quick-reply-btn" data-query="how to reach">How to Reach</button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Ask about Chittagong..." class="chatbot-input">
+            <button class="chatbot-send" id="chatbotSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/chatbot.js"></script>
+    <script>
+        // Category filter functionality
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const personCards = document.querySelectorAll('.person-card');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active to clicked button
+                button.classList.add('active');
+
+                const category = button.getAttribute('data-category');
+
+                personCards.forEach(card => {
+                    if (category === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const cardCategory = card.getAttribute('data-category');
+                        if (cardCategory === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>About — Mahjabin Nahar</title>
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header id="siteHeader" class="page-navbar sticky top-0 z-50">
+    <div class="container-x flex h-20 items-center justify-between">
+      
+      <a href="../index.html" class="flex items-center gap-3">
+        <span class="grid h-9 w-9 place-items-center rounded-full bg-[var(--text)] text-[var(--bg)] text-[10px] font-bold">
+          MN
+        </span>
+
+        <span class="display-font text-[1.45rem] font-semibold tracking-tight">
+          Mahjabin Nahar
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-2 md:flex">
+        <a href="../index.html" class="nav-pill rounded-full px-5 py-2.5 text-[15px] font-medium">Home</a>
+        <a href="myproject.html" class="nav-pill rounded-full px-5 py-2.5 text-[15px] font-medium">Projects</a>
+        <a href="about-me.html" class="nav-pill active rounded-full px-5 py-2.5 text-[15px] font-medium">About</a>
+        <a href="contactme.html" class="nav-pill rounded-full px-5 py-2.5 text-[15px] font-medium">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" type="button" class="theme-toggle-btn" aria-label="Toggle theme">
+          <i id="themeIcon" class="fa-regular fa-sun"></i>
+        </button>
+
+        <a href="../my cv/cv.html" class="resume-btn hidden md:inline-flex">
+          <i class="fa-solid fa-download text-sm"></i>
+          Resume
+        </a>
+
+        <button id="menuBtn" type="button" class="theme-toggle-btn md:hidden" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden border-t border-[var(--border)] bg-[var(--bg)] md:hidden">
+      <div class="container-x flex flex-col gap-2 py-5">
+        <a href="../index.html" class="nav-pill rounded-xl px-4 py-3 text-sm font-medium">Home</a>
+        <a href="myproject.html" class="nav-pill rounded-xl px-4 py-3 text-sm font-medium">Projects</a>
+        <a href="about-me.html" class="nav-pill active rounded-xl px-4 py-3 text-sm font-medium">About</a>
+        <a href="contactme.html" class="nav-pill rounded-xl px-4 py-3 text-sm font-medium">Contact</a>
+
+        <a href="../my cv/cv.html" class="resume-btn mt-3 justify-center">
+          <i class="fa-solid fa-download text-sm"></i>
+          Download Resume
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Header -->
+    <section class="container-x pt-16 pb-12 md:pt-24">
+      <div class="reveal">
+        <p class="eyebrow mb-5 text-[var(--primary)]">About</p>
+
+        <h1 class="display-1 max-w-6xl">
+          A designer who treats interfaces like conversations.
+        </h1>
+
+        <p class="mt-8 max-w-3xl text-lg leading-relaxed text-muted md:text-xl">
+          I am a UI/UX designer with a soft spot for products that respect their users'
+          time. I work mostly in Figma, Canva, and increasingly in code.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main About -->
+    <section class="container-x pb-20">
+      <div class="grid gap-12 md:grid-cols-[0.9fr_1.35fr] md:gap-16">
+        
+        <!-- Left Sticky Visual -->
+        <aside class="reveal from-left">
+          <div class="about-sticky">
+            <div class="about-portrait">
+              <span class="display-font">MN</span>
+            </div>
+
+            <div class="about-location-card">
+              <p class="display-font text-xl font-medium">Based remotely</p>
+              <p class="mt-1 text-sm text-muted">Working with teams worldwide.</p>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Content -->
+        <div class="space-y-16">
+          
+          <section class="reveal from-right">
+            <h2 class="display-font text-3xl font-medium tracking-tight md:text-4xl">
+              A bit about me
+            </h2>
+
+            <div class="mt-6 space-y-5 text-base leading-relaxed text-[var(--text)]/85 md:text-lg">
+              <p>
+                I started designing the way most people do — making things look nice.
+                Over time, I realized the interesting work was upstream: figuring out
+                what to build, for whom, and why the simplest version is usually the best one.
+              </p>
+
+              <p>
+                Today I work on interfaces that need to be more useful than loud.
+                I care about visual hierarchy, simple navigation, accessibility, and
+                design decisions that make real user tasks easier.
+              </p>
+            </div>
+          </section>
+
+          <section class="reveal from-right" data-delay="80">
+            <h2 class="display-font text-3xl font-medium tracking-tight md:text-4xl">
+              How I design
+            </h2>
+
+            <ul class="mt-7 space-y-4">
+              <li class="about-rule-card">
+                <h3>Slow down to speed up.</h3>
+                <p>Most design problems are misframed problems. I spend extra time on the question before any pixels.</p>
+              </li>
+
+              <li class="about-rule-card">
+                <h3>Defaults are design.</h3>
+                <p>The choice you do not make for the user becomes the choice they live with. I take defaults seriously.</p>
+              </li>
+
+              <li class="about-rule-card">
+                <h3>Type carries voice.</h3>
+                <p>Typography is one of the fastest ways to make a product feel intentional, trustworthy, and clear.</p>
+              </li>
+
+              <li class="about-rule-card">
+                <h3>Ship to learn.</h3>
+                <p>A prototype in real hands beats a perfect static screen. I design toward the smallest honest version.</p>
+              </li>
+            </ul>
+          </section>
+
+          <section class="reveal from-right" data-delay="120">
+            <h2 class="display-font text-3xl font-medium tracking-tight md:text-4xl">
+              Tools
+            </h2>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="tag-chip">Figma</span>
+              <span class="tag-chip">FigJam</span>
+              <span class="tag-chip">Canva</span>
+              <span class="tag-chip">Framer</span>
+              <span class="tag-chip">Webflow</span>
+              <span class="tag-chip">Illustrator</span>
+              <span class="tag-chip">Photoshop</span>
+              <span class="tag-chip">Notion</span>
+              <span class="tag-chip">Principle</span>
+              <span class="tag-chip">Maze</span>
+              <span class="tag-chip">Lottie</span>
+              <span class="tag-chip">HTML/CSS</span>
+              <span class="tag-chip">JavaScript</span>
+            </div>
+          </section>
+
+          <section class="reveal from-right" data-delay="160">
+            <div class="fun-card">
+              <div class="flex items-center gap-3">
+                <span class="fun-icon">
+                  <i class="fa-solid fa-mug-hot"></i>
+                </span>
+
+                <p class="eyebrow text-[var(--primary)]">Fun fact</p>
+              </div>
+
+              <p class="display-font mt-5 text-2xl leading-snug md:text-3xl">
+                I once redesigned a small menu layout just because the spacing bothered me.
+                That is probably when I knew design was not only a hobby anymore.
+              </p>
+            </div>
+          </section>
+
+          <section class="reveal from-right" data-delay="200">
+            <div class="flex flex-wrap gap-3">
+              <a href="../my cv/cv.html" class="cta-btn cta-primary">
+                <i class="fa-solid fa-download text-xs"></i>
+                View Resume
+              </a>
+
+              <a href="contactme.html" class="cta-btn cta-outline">
+                Get in touch
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <button id="scrollToTop" class="scroll-top-btn" aria-label="Scroll to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    initThemeToggle();
+    initMobileMenu();
+    initRevealAnimation();
+    initScrollToTopButton();
+
+    function initThemeToggle() {
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+
+      const storedTheme = localStorage.getItem("theme");
+      const initialTheme = storedTheme || "dark";
+
+      document.documentElement.setAttribute("data-theme", initialTheme);
+
+      if (themeIcon) {
+        themeIcon.className = initialTheme === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+        document.documentElement.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("theme", nextTheme);
+
+        themeIcon.className = nextTheme === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
+      });
+    }
+
+    function initMobileMenu() {
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      if (!menuBtn || !mobileMenu) return;
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+
+        const icon = menuBtn.querySelector("i");
+        icon.className = mobileMenu.classList.contains("hidden")
+          ? "fa-solid fa-bars"
+          : "fa-solid fa-xmark";
+      });
+    }
+
+    function initRevealAnimation() {
+      const revealItems = document.querySelectorAll(".reveal");
+
+      if (!("IntersectionObserver" in window)) {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const delay = entry.target.dataset.delay || "0";
+            entry.target.style.transitionDelay = `${delay}ms`;
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      );
+
+      revealItems.forEach((item) => observer.observe(item));
+    }
+
+    function initScrollToTopButton() {
+      const scrollButton = document.getElementById("scrollToTop");
+
+      window.addEventListener("scroll", () => {
+        scrollButton.classList.toggle("show", window.scrollY > 500);
+      }, { passive: true });
+
+      scrollButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+
+    loadFooter();
+
+async function loadFooter() {
+  const footerTarget = document.getElementById("footer");
+
+  if (!footerTarget) return;
+
+  try {
+    const response = await fetch("../section/footer.html");
+
+    if (!response.ok) {
+      throw new Error("Footer failed to load");
+    }
+
+    footerTarget.innerHTML = await response.text();
+
+    fixFooterLinksForPages();
+
+    if (typeof initRevealAnimation === "function") {
+      initRevealAnimation();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function fixFooterLinksForPages() {
+  const footer = document.getElementById("footer");
+
+  if (!footer) return;
+
+  footer.querySelectorAll("a").forEach((link) => {
+    const href = link.getAttribute("href");
+
+    if (!href) return;
+
+    if (href === "#home") {
+      link.setAttribute("href", "../index.html#home");
+    }
+
+    if (href === "index.html") {
+      link.setAttribute("href", "../index.html");
+    }
+
+    if (href.startsWith("pages/")) {
+      link.setAttribute("href", href.replace("pages/", ""));
+    }
+
+    if (href.startsWith("my cv/")) {
+      link.setAttribute("href", "../" + href);
+    }
+  });
+}
+
+
+  </script>
+
+
+
+
+</body>
+</html>
+

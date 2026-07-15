@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore top tourist destinations in Chittagong - Beaches, Hills, Museums, and Historical Sites">
+    <title>Tourist Spots - Chittagong Tourism</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.9) 0%, rgba(74, 124, 44, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600') center/cover;
+            padding: 5rem 0 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .spot-detail {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .spot-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .spot-image-large {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .spot-info {
+            padding: 2.5rem;
+        }
+
+        .spot-info h2 {
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .spot-category {
+            display: inline-block;
+            background: var(--accent-green);
+            color: white;
+            padding: 0.35rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .spot-description {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .spot-details-list {
+            list-style: none;
+        }
+
+        .spot-details-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .spot-details-list li:last-child {
+            border-bottom: none;
+        }
+
+        .detail-icon {
+            font-size: 1.25rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary-green);
+            min-width: 120px;
+        }
+
+        .detail-value {
+            color: var(--text-gray);
+        }
+
+        .nearby-hotels {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--bg-cream);
+        }
+
+        .nearby-hotels h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .hotel-link {
+            display: inline-block;
+            margin: 0.5rem 1rem 0.5rem 0;
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-cream);
+            color: var(--secondary-green);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .hotel-link:hover {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        @media (max-width: 968px) {
+            .spot-detail-content {
+                grid-template-columns: 1fr;
+            }
+
+            .spot-image-large {
+                height: 300px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>চট্টগ্রাম <span>Tourism</span></h1>
+                    <p class="tagline">Gateway to the Hills & Sea</p>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="../index.html">Home</a>
+                    <a href="tourist-spots.html" class="active">Tourist Spots</a>
+                    <a href="history.html">History & Culture</a>
+                    <a href="personalities.html">Famous People</a>
+                    <a href="hotels.html">Hotels & Restaurants</a>
+                    <a href="travel-guide.html">Travel Guide</a>
+                    <a href="gallery.html">Gallery</a>
+                </nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Popular Tourist Destinations</h1>
+            <p>Discover the natural beauty and cultural heritage of Chittagong</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            
+            <!-- Patenga Beach -->
+            <div class="spot-detail" id="patenga">
+                <div class="spot-detail-content">
+                    <div class="spot-image-large" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800');"></div>
+                    <div class="spot-info">
+                        <span class="spot-category">Sea Beach</span>
+                        <h2>Patenga Beach</h2>
+                        <p class="spot-description">
+                            Patenga Beach is one of the most popular tourist destinations in Chittagong. Located at the mouth of the Karnaphuli River where it meets the Bay of Bengal, this beautiful beach offers stunning views, especially during sunset. The beach is always bustling with visitors enjoying the sea breeze, local street food, and the scenic beauty.
+                        </p>
+                        <ul class="spot-details-list">
+                            <li>
+                                <span class="detail-icon">📍</span>
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value">14 km from city center</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">⏰</span>
+                                <span class="detail-label">Best Time:</span>
+                                <span class="detail-value">Evening (4-7 PM) for sunset</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">💰</span>
+                                <span class="detail-label">Entry Fee:</span>
+                                <span class="detail-value">Free</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">🚗</span>
+                                <span class="detail-label">How to Reach:</span>
+                                <span class="detail-value">CNG/Taxi from city (30-40 min)</span>
+                            </li>
+                        </ul>
+                        <div class="nearby-hotels">
+                            <h3>Nearby Hotels & Restaurants:</h3>
+                            <a href="hotels.html#seaview" class="hotel-link">Sea View Hotel</a>
+                            <a href="hotels.html#patenga-resort" class="hotel-link">Patenga Resort</a>
+                            <a href="hotels.html#beach-restaurant" class="hotel-link">Beach Side Restaurant</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foy's Lake -->
+            <div class="spot-detail" id="foyslake">
+                <div class="spot-detail-content">
+                    <div class="spot-image-large" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800');"></div>
+                    <div class="spot-info">
+                        <span class="spot-category">Lake & Amusement Park</span>
+                        <h2>Foy's Lake</h2>
+                        <p class="spot-description">
+                            Foy's Lake is a man-made lake and popular tourist spot featuring an amusement park, water world, and resort. Named after Mr. Foy, the British railway engineer who excavated it in 1924, the lake is surrounded by hills and offers various recreational activities. The amusement park includes rides, restaurants, and beautiful gardens.
+                        </p>
+                        <ul class="spot-details-list">
+                            <li>
+                                <span class="detail-icon">📍</span>
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value">8 km north of city center</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">⏰</span>
+                                <span class="detail-label">Opening Hours:</span>
+                                <span class="detail-value">10:00 AM - 8:00 PM</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">💰</span>
+                                <span class="detail-label">Entry Fee:</span>
+                                <span class="detail-value">50-200 Tk (depending on activities)</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">🎢</span>
+                                <span class="detail-label">Activities:</span>
+                                <span class="detail-value">Boating, rides, zip-line, water park</span>
+                            </li>
+                        </ul>
+                        <div class="nearby-hotels">
+                            <h3>Nearby Hotels & Restaurants:</h3>
+                            <a href="hotels.html#foys-resort" class="hotel-link">Foy's Lake Resort</a>
+                            <a href="hotels.html#hill-view" class="hotel-link">Hill View Restaurant</a>
+                            <a href="hotels.html#lakeside" class="hotel-link">Lakeside Café</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bayazid Bostami -->
+            <div class="spot-detail" id="bayazid">
+                <div class="spot-detail-content">
+                    <div class="spot-image-large" style="background-image: url('https://images.unsplash.com/photo-1549144511-f099e773c147?w=800');"></div>
+                    <div class="spot-info">
+                        <span class="spot-category">Religious & Historical</span>
+                        <h2>Bayazid Bostami Shrine</h2>
+                        <p class="spot-description">
+                            The shrine of Bayazid Bostami is located on a hillock in Nasirabad area. This revered site includes a mosque, tomb, and a pond with hundreds of sacred turtles. According to legend, these turtles are transformed followers of the saint. The location offers spiritual tranquility and panoramic views of the city.
+                        </p>
+                        <ul class="spot-details-list">
+                            <li>
+                                <span class="detail-icon">📍</span>
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value">Nasirabad, 7 km from city</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">⏰</span>
+                                <span class="detail-label">Best Time:</span>
+                                <span class="detail-value">Morning or evening</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">💰</span>
+                                <span class="detail-label">Entry Fee:</span>
+                                <span class="detail-value">Free (donations welcome)</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">🐢</span>
+                                <span class="detail-label">Special:</span>
+                                <span class="detail-value">Sacred pond with turtles</span>
+                            </li>
+                        </ul>
+                        <div class="nearby-hotels">
+                            <h3>Nearby Hotels & Restaurants:</h3>
+                            <a href="hotels.html#nasirabad" class="hotel-link">Nasirabad Inn</a>
+                            <a href="hotels.html#heritage" class="hotel-link">Heritage Restaurant</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chandranath Hill -->
+            <div class="spot-detail" id="chandranath">
+                <div class="spot-detail-content">
+                    <div class="spot-image-large" style="background-image: url('https://images.unsplash.com/photo-1464207687429-7505649dae38?w=800');"></div>
+                    <div class="spot-info">
+                        <span class="spot-category">Religious & Hill</span>
+                        <h2>Chandranath Hill Temple</h2>
+                        <p class="spot-description">
+                            Chandranath Hill, located in Sitakunda, is one of the most sacred Hindu pilgrimage sites in Bangladesh. The ancient temple sits atop the hill at 1,020 feet, dedicated to Goddess Chandranath. The location offers breathtaking panoramic views and is particularly crowded during the Shiva Chaturdashi festival in March.
+                        </p>
+                        <ul class="spot-details-list">
+                            <li>
+                                <span class="detail-icon">📍</span>
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value">Sitakunda, 37 km from Chittagong</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">⏰</span>
+                                <span class="detail-label">Best Time:</span>
+                                <span class="detail-value">Early morning for sunrise</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">💰</span>
+                                <span class="detail-label">Entry Fee:</span>
+                                <span class="detail-value">Free</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">🥾</span>
+                                <span class="detail-label">Trek:</span>
+                                <span class="detail-value">1-2 hour climb (steps available)</span>
+                            </li>
+                        </ul>
+                        <div class="nearby-hotels">
+                            <h3>Nearby Hotels & Restaurants:</h3>
+                            <a href="hotels.html#sitakunda" class="hotel-link">Sitakunda Rest House</a>
+                            <a href="hotels.html#hill-restaurant" class="hotel-link">Hill View Dhaba</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Karnaphuli River -->
+            <div class="spot-detail" id="karnaphuli">
+                <div class="spot-detail-content">
+                    <div class="spot-image-large" style="background-image: url('https://images.unsplash.com/photo-1581447109200-bf2769116351?w=800');"></div>
+                    <div class="spot-info">
+                        <span class="spot-category">River & Scenic</span>
+                        <h2>Karnaphuli River</h2>
+                        <p class="spot-description">
+                            The Karnaphuli River is the lifeline of Chittagong, flowing through the heart of the city before emptying into the Bay of Bengal. The river offers spectacular views, especially from Sadarghat area. Boat rides on the Karnaphuli provide a unique perspective of the port city, with ships, boats, and the cityscape creating a memorable experience.
+                        </p>
+                        <ul class="spot-details-list">
+                            <li>
+                                <span class="detail-icon">📍</span>
+                                <span class="detail-label">Main Viewing:</span>
+                                <span class="detail-value">Sadarghat, Kalurghat Bridge</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">⏰</span>
+                                <span class="detail-label">Best Time:</span>
+                                <span class="detail-value">Sunset (5-6:30 PM)</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">💰</span>
+                                <span class="detail-label">Boat Ride:</span>
+                                <span class="detail-value">100-500 Tk (negotiable)</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">🚤</span>
+                                <span class="detail-label">Activities:</span>
+                                <span class="detail-value">River cruises, boat rides</span>
+                            </li>
+                        </ul>
+                        <div class="nearby-hotels">
+                            <h3>Nearby Hotels & Restaurants:</h3>
+                            <a href="hotels.html#riverside" class="hotel-link">Riverside Hotel</a>
+                            <a href="hotels.html#port-view" class="hotel-link">Port View Restaurant</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ethnological Museum -->
+            <div class="spot-detail" id="museum">
+                <div class="spot-detail-content">
+                    <div class="spot-image-large" style="background-image: url('https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800');"></div>
+                    <div class="spot-info">
+                        <span class="spot-category">Museum & Culture</span>
+                        <h2>Ethnological Museum</h2>
+                        <p class="spot-description">
+                            The Chittagong Ethnological Museum showcases the rich cultural heritage of the tribal communities of Bangladesh. Established in 1965, it houses artifacts, traditional costumes, handicrafts, and exhibits representing the lifestyle of various indigenous groups including Chakma, Marma, Tripura, and others.
+                        </p>
+                        <ul class="spot-details-list">
+                            <li>
+                                <span class="detail-icon">📍</span>
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value">Agrabad, city center</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">⏰</span>
+                                <span class="detail-label">Opening Hours:</span>
+                                <span class="detail-value">10 AM - 5 PM (Closed Friday)</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">💰</span>
+                                <span class="detail-label">Entry Fee:</span>
+                                <span class="detail-value">20 Tk (Bangladeshi), 100 Tk (Foreign)</span>
+                            </li>
+                            <li>
+                                <span class="detail-icon">🎨</span>
+                                <span class="detail-label">Collections:</span>
+                                <span class="detail-value">5000+ artifacts from 25+ tribes</span>
+                            </li>
+                        </ul>
+                        <div class="nearby-hotels">
+                            <h3>Nearby Hotels & Restaurants:</h3>
+                            <a href="hotels.html#agrabad" class="hotel-link">Hotel Agrabad</a>
+                            <a href="hotels.html#peninsula" class="hotel-link">Peninsula Chittagong</a>
+                            <a href="hotels.html#mezban" class="hotel-link">Mezban Restaurant</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Chittagong</h3>
+                    <p>Chittagong is Bangladesh's second-largest city and the country's main seaport. Known for its natural beauty, it's a perfect destination for tourists seeking both adventure and relaxation.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                        <li><a href="hotels.html">Hotels & Restaurants</a></li>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Important Info</h3>
+                    <ul>
+                        <li><a href="history.html">History & Culture</a></li>
+                        <li><a href="personalities.html">Famous Personalities</a></li>
+                        <li><a href="#emergency">Emergency Numbers</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li>Police: 999</li>
+                        <li>Fire Service: 102</li>
+                        <li>Ambulance: 199</li>
+                        <li>Tourist Helpline: 01XXX-XXXXXX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chittagong Tourism. Promoting the beauty of Port City. Made with ❤️ for tourists.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            <div class="chatbot-title">
+                <span class="chatbot-icon">💬</span>
+                <span>CTG Tourism Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot-message">
+                <p>আসসালামু আলাইকুম! Welcome to Chittagong Tourism. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-query="tourist spots">Tourist Spots</button>
+            <button class="quick-reply-btn" data-query="hotels">Hotels</button>
+            <button class="quick-reply-btn" data-query="how to reach">How to Reach</button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Ask about Chittagong..." class="chatbot-input">
+            <button class="chatbot-send" id="chatbotSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/chatbot.js"></script>
+</body>
+</html>

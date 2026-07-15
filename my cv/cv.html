@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mahjabin — Resume</title>
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- PDF Download Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Fonts: match portfolio tone -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <style>
+    :root {
+      --cv-bg: #0d0805;
+      --cv-surface: #f6efe8;
+      --cv-page: #fffaf4;
+      --cv-dark: #17110d;
+      --cv-dark-2: #241a14;
+      --cv-text: #1f1711;
+      --cv-muted: #6f625a;
+      --cv-soft: #efe1d4;
+      --cv-line: #decab8;
+      --cv-accent: #ff8238;
+      --cv-accent-dark: #c85f25;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .resume-name,
+    .section-title,
+    .display-font {
+      font-family: "Fraunces", serif;
+    }
+
+    .cv-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Fraunces", serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--cv-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .cv-section-title span {
+      height: 4px;
+      width: 30px;
+      border-radius: 999px;
+      background: var(--cv-accent);
+    }
+
+    .cv-chip {
+      border-radius: 999px;
+      background: rgba(255, 130, 56, 0.13);
+      color: #fff4eb;
+      border: 1px solid rgba(255, 130, 56, 0.22);
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .cv-soft-card {
+      border: 1px solid var(--cv-line);
+      background: rgba(255, 250, 244, 0.75);
+    }
+
+    .cv-accent-text {
+      color: var(--cv-accent-dark);
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        padding: 0 !important;
+        background: #ffffff !important;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .resume-page {
+        width: 210mm !important;
+        height: 297mm !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-[var(--cv-bg)] px-3 py-6 text-[var(--cv-text)] md:px-4 md:py-8">
+
+  <!-- Buttons -->
+  <div class="no-print fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 gap-2 md:top-4 md:right-4 md:bottom-auto md:left-auto md:translate-x-0">
+    <button
+      type="button"
+      onclick="window.print()"
+      class="rounded-full bg-[var(--cv-accent)] px-4 py-2 text-xs font-bold text-[#160b05] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
+    >
+      <i class="fas fa-print mr-1"></i>
+      Print
+    </button>
+
+    <button
+      type="button"
+      onclick="downloadResumePDF()"
+      class="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-bold text-white shadow-lg backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15"
+    >
+      <i class="fas fa-download mr-1"></i>
+      PDF
+    </button>
+  </div>
+
+  <!-- Resume Page -->
+  <main
+    id="resume-page"
+    class="resume-page mx-auto grid h-[297mm] w-[210mm] max-w-full grid-cols-[60mm_1fr] overflow-hidden rounded-xl bg-[var(--cv-page)] shadow-2xl max-[900px]:h-auto max-[900px]:grid-cols-1"
+  >
+
+    <!-- Left Column -->
+    <aside class="bg-[var(--cv-dark)] px-6 py-6 text-white">
+
+      <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full border-4 border-[rgba(255,130,56,0.25)] bg-[var(--cv-accent)] text-3xl font-extrabold text-[#160b05]">
+        M
+      </div>
+
+      <h1 class="resume-name mt-3 text-center text-2xl font-semibold tracking-tight">
+        Mahjabin
+      </h1>
+
+      <p class="mt-1 text-center text-[11px] font-semibold uppercase tracking-[2px] text-[#d8c8bc]">
+        UI/UX Designer · Frontend
+      </p>
+
+      <!-- Contact -->
+      <section class="mt-6">
+        <h2 class="mb-3 border-b border-white/15 pb-2 text-xs font-bold uppercase tracking-[3px] text-[var(--cv-accent)]">
+          Contact
+        </h2>
+
+        <div class="space-y-2 text-[11.5px] leading-5 text-[#e9ded4]">
+          <p class="flex gap-3">
+            <i class="fas fa-envelope mt-1 w-4 text-[var(--cv-accent)]"></i>
+            <span>mahjabin@example.com</span>
+          </p>
+
+          <p class="flex gap-3">
+            <i class="fas fa-phone mt-1 w-4 text-[var(--cv-accent)]"></i>
+            <span>+880 1234-567890</span>
+          </p>
+
+          <p class="flex gap-3">
+            <i class="fas fa-location-dot mt-1 w-4 text-[var(--cv-accent)]"></i>
+            <span>Chattogram, Bangladesh</span>
+          </p>
+
+          <p class="flex gap-3">
+            <i class="fas fa-globe mt-1 w-4 text-[var(--cv-accent)]"></i>
+            <span>mahjabin.dev</span>
+          </p>
+
+          <p class="flex gap-3">
+            <i class="fab fa-github mt-1 w-4 text-[var(--cv-accent)]"></i>
+            <span>github.com/mahjabin</span>
+          </p>
+
+          <p class="flex gap-3">
+            <i class="fab fa-linkedin mt-1 w-4 text-[var(--cv-accent)]"></i>
+            <span>linkedin.com/in/mahjabin</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="mt-6">
+        <h2 class="mb-3 border-b border-white/15 pb-2 text-xs font-bold uppercase tracking-[3px] text-[var(--cv-accent)]">
+          Skills
+        </h2>
+
+        <div class="flex flex-wrap gap-2">
+          <span class="cv-chip">HTML5</span>
+          <span class="cv-chip">CSS3</span>
+          <span class="cv-chip">Tailwind CSS</span>
+          <span class="cv-chip">Bootstrap</span>
+          <span class="cv-chip">JavaScript</span>
+          <span class="cv-chip">React</span>
+          <span class="cv-chip">Figma</span>
+          <span class="cv-chip">Canva</span>
+          <span class="cv-chip">Email Marketing</span>
+          <span class="cv-chip">GitHub</span>
+        </div>
+      </section>
+
+      <!-- Tools -->
+      <section class="mt-6">
+        <h2 class="mb-3 border-b border-white/15 pb-2 text-xs font-bold uppercase tracking-[3px] text-[var(--cv-accent)]">
+          Tools
+        </h2>
+
+        <div class="space-y-1.5 text-[11.5px] text-[#e9ded4]">
+          <p>VS Code</p>
+          <p>Figma</p>
+          <p>Canva</p>
+          <p>Git & GitHub</p>
+          <p>Chrome DevTools</p>
+        </div>
+      </section>
+
+      <!-- Languages -->
+      <section class="mt-6">
+        <h2 class="mb-3 border-b border-white/15 pb-2 text-xs font-bold uppercase tracking-[3px] text-[var(--cv-accent)]">
+          Languages
+        </h2>
+
+        <div class="space-y-1.5 text-[11.5px] text-[#e9ded4]">
+          <p>Bengali — Native</p>
+          <p>English — Professional</p>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Right Column -->
+    <section class="bg-[var(--cv-page)] px-7 py-6">
+
+      <header class="border-b border-[var(--cv-line)] pb-4">
+        <h1 class="resume-name text-4xl font-semibold tracking-tight text-[var(--cv-dark)]">
+          Mahjabin
+        </h1>
+
+        <p class="mt-1.5 text-xs font-bold uppercase tracking-[3px] text-[var(--cv-accent-dark)]">
+          Frontend Developer · UI Designer
+        </p>
+
+        <p class="mt-3 text-[12.5px] leading-6 text-[var(--cv-muted)]">
+          Frontend developer and UI designer focused on creating clean,
+          responsive and user-friendly web interfaces. Skilled in HTML,
+          Tailwind CSS, JavaScript, React, Figma, Canva and email marketing,
+          with a strong interest in modern design and smooth user experience.
+        </p>
+      </header>
+
+      <!-- Education -->
+      <section class="mt-5">
+        <h2 class="cv-section-title mb-3">
+          <span></span>
+          Education
+        </h2>
+
+        <div class="mb-3">
+          <div class="flex items-baseline justify-between gap-4 max-[700px]:flex-col max-[700px]:gap-1">
+            <h3 class="text-[13.5px] font-extrabold text-[var(--cv-dark)]">
+              B.Sc. in Computer Science and Engineering
+            </h3>
+
+            <p class="whitespace-nowrap text-[11px] font-bold text-[var(--cv-accent-dark)]">
+              Present
+            </p>
+          </div>
+
+          <p class="mt-1 text-[12px] italic text-[var(--cv-muted)]">
+            International Islamic University Chittagong
+          </p>
+
+          <p class="mt-1 text-[12px] leading-5 text-[var(--cv-muted)]">
+            Focused on programming fundamentals, web technologies,
+            software development and computer science core concepts.
+          </p>
+        </div>
+
+        <div>
+          <div class="flex items-baseline justify-between gap-4 max-[700px]:flex-col max-[700px]:gap-1">
+            <h3 class="text-[13.5px] font-extrabold text-[var(--cv-dark)]">
+              Higher Secondary Certificate — Science
+            </h3>
+
+            <p class="whitespace-nowrap text-[11px] font-bold text-[var(--cv-accent-dark)]">
+              Completed
+            </p>
+          </div>
+
+          <p class="mt-1 text-[12px] italic text-[var(--cv-muted)]">
+            Kapasgola City Corporation College
+          </p>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="mt-5">
+        <h2 class="cv-section-title mb-3">
+          <span></span>
+          Projects
+        </h2>
+
+        <div class="space-y-3">
+
+          <div>
+            <div class="flex items-baseline justify-between gap-4 max-[700px]:flex-col max-[700px]:gap-1">
+              <h3 class="text-[13.5px] font-extrabold text-[var(--cv-dark)]">
+                Discover Chittagong — Tourism Website
+              </h3>
+
+              <p class="whitespace-nowrap text-[11px] font-bold text-[var(--cv-accent-dark)]">
+                HTML · Tailwind · JS
+              </p>
+            </div>
+
+            <ul class="mt-1.5 list-disc space-y-1 pl-5 text-[12px] leading-5 text-[var(--cv-muted)]">
+              <li>Designed a responsive tourism website showcasing Chittagong attractions, culture and travel information.</li>
+              <li>Built clean sections, smooth navigation and image-focused layouts for better user experience.</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between gap-4 max-[700px]:flex-col max-[700px]:gap-1">
+              <h3 class="text-[13.5px] font-extrabold text-[var(--cv-dark)]">
+                LifeLink — Medicine Donation Platform
+              </h3>
+
+              <p class="whitespace-nowrap text-[11px] font-bold text-[var(--cv-accent-dark)]">
+                HTML · Tailwind · JS
+              </p>
+            </div>
+
+            <ul class="mt-1.5 list-disc space-y-1 pl-5 text-[12px] leading-5 text-[var(--cv-muted)]">
+              <li>Created a platform concept connecting medicine donors with people who need medicines.</li>
+              <li>Designed donor and receiver flows with clear interface structure and accessible forms.</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between gap-4 max-[700px]:flex-col max-[700px]:gap-1">
+              <h3 class="text-[13.5px] font-extrabold text-[var(--cv-dark)]">
+                Voice Assistant
+              </h3>
+
+              <p class="whitespace-nowrap text-[11px] font-bold text-[var(--cv-accent-dark)]">
+                Python · NLP
+              </p>
+            </div>
+
+            <ul class="mt-1.5 list-disc space-y-1 pl-5 text-[12px] leading-5 text-[var(--cv-muted)]">
+              <li>Developed a basic voice assistant that recognizes user commands and responds with speech.</li>
+              <li>Explored speech recognition, text-to-speech and simple automation workflows.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Strengths -->
+      <section class="mt-5">
+        <h2 class="cv-section-title mb-3">
+          <span></span>
+          Strengths
+        </h2>
+
+        <div class="grid grid-cols-2 gap-2 text-[12px] text-[var(--cv-muted)] max-[700px]:grid-cols-1">
+          <div class="cv-soft-card rounded-lg p-3">
+            <p class="font-bold text-[var(--cv-dark)]">UI Design</p>
+            <p class="mt-1 leading-5">Clean layout, spacing, color balance and responsive design.</p>
+          </div>
+
+          <div class="cv-soft-card rounded-lg p-3">
+            <p class="font-bold text-[var(--cv-dark)]">Frontend Development</p>
+            <p class="mt-1 leading-5">Structured, responsive and interactive web pages.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="mt-5 border-t border-[var(--cv-line)] pt-3 text-right text-[11px] text-[var(--cv-muted)]">
+        Designed & built by
+        <span class="font-bold text-[var(--cv-dark)]">Mahjabin</span>
+        · Open to collaborations
+      </footer>
+
+    </section>
+
+  </main>
+
+  <script>
+    function downloadResumePDF() {
+      const resume = document.getElementById("resume-page");
+
+      const options = {
+        margin: 0,
+        filename: "Mahjabin-Resume.pdf",
+        image: {
+          type: "jpeg",
+          quality: 0.98
+        },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          scrollY: 0
+        },
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: "portrait"
+        },
+        pagebreak: {
+          mode: ["avoid-all"]
+        }
+      };
+
+      html2pdf().set(options).from(resume).save();
+    }
+  </script>
+
+</body>
+</html>
