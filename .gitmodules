@@ -1,0 +1,3 @@
+[submodule "lms"]
+	path = my project/Learning Management System
+	url = https://github.com/Mahjabin12/Learning-Management-System.git
